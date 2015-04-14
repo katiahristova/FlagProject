@@ -48,7 +48,6 @@ import java.util.Set;
 
 public class MyActivity extends FragmentActivity {
     //private static final String TAG = "FlagQuizGame Activity";
-    //comment
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
