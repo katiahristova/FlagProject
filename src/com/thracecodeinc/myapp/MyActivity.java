@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -78,6 +79,7 @@ public class MyActivity extends FragmentActivity {
         guessRows = 2;
         random = new Random();
         handler = new Handler();
+
         shakeAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.incorrect_shake);
         shakeAnimation.setRepeatCount(3);
@@ -360,12 +362,14 @@ public class MyActivity extends FragmentActivity {
     }
 
 
-    private void setUpMap(LatLng latLng, String country) {
+    private void setUpMap(LatLng latLng, String country, String address) {
+        //Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(country)
                 .snippet("Population: 76733")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))).showInfoWindow();
+                //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
     }
 
     // An AsyncTask class for accessing the GeoCoding Web Service
@@ -379,7 +383,7 @@ public class MyActivity extends FragmentActivity {
 
             try {
                 // Getting a maximum of 3 Address that matches the input text
-                addresses = geocoder.getFromLocationName(locationName[0], 3);
+                addresses = geocoder.getFromLocationName(locationName[0], 1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -418,7 +422,8 @@ public class MyActivity extends FragmentActivity {
                         public void onFinish() {
                             Log.d("animation", "onFinishCalled");
                             //setUpMap(latitude, longtitude);
-                            setUpMap(latLng, addressText);
+                            setUpMap(latLng, addressText, addressText);
+
                         }
 
                         @Override
