@@ -367,7 +367,7 @@ public class MyActivity extends FragmentActivity {
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(country)
-                .snippet("Population: 76734")
+                .snippet("Population: 76779")
                 //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
     }
