@@ -9,7 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.media.Image;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
