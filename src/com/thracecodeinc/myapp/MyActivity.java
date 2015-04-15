@@ -1,5 +1,4 @@
 package com.thracecodeinc.myapp;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,15 +33,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.thracecodeinc.guessTheFlag.R;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -52,6 +56,8 @@ public class MyActivity extends FragmentActivity {
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
+    private Map<String, Integer> populationMap;
+
     private String correctAnswer;
     private int totalGuesses; // number of guesses made
     private int correctAnswers; // number of correct guesses
@@ -68,6 +74,9 @@ public class MyActivity extends FragmentActivity {
     private LatLng latLng;
     private String addressText;
 
+    private String filenameOld, filenameNew;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +85,7 @@ public class MyActivity extends FragmentActivity {
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
         regionsMap = new HashMap<String, Boolean>();
+        populationMap = new HashMap<String, Integer>();
         guessRows = 2;
         random = new Random();
         handler = new Handler();
@@ -87,6 +97,9 @@ public class MyActivity extends FragmentActivity {
                 getResources().getStringArray(R.array.regionsList);
         for (String region : regionNames)
             regionsMap.put(region, true);
+
+        getPopulations();
+
         questionNumberTextView =
                 (TextView) findViewById(R.id.questionNumberTextView);
         flagImageView = (ImageView) findViewById(R.id.flagImageView);
@@ -146,12 +159,15 @@ public class MyActivity extends FragmentActivity {
                 getResources().getString(R.string.question) + " " +
                         (correctAnswers + 1) + " " +
                         getResources().getString(R.string.of) + " 10");
+
         String region =
                 nextImageName.substring(0, nextImageName.indexOf('-'));
         AssetManager assets = getAssets(); // get app's AssetManager
         InputStream stream;
         try {
             stream = assets.open(region + "/" + nextImageName + ".png");
+            filenameOld = filenameNew;
+            filenameNew = region + "/" + nextImageName + ".png";
 
             flag = Drawable.createFromStream(stream, nextImageName);
             flagImageView.setImageDrawable(flag);
@@ -362,15 +378,20 @@ public class MyActivity extends FragmentActivity {
     }
 
 
+
     private void setUpMap(LatLng latLng, String country, String address) {
         //Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
+
+        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country,populationMap.get(country),filenameOld));
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(country)
-                .snippet("Population: 76775")
-                //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+                .snippet("Population: " + NumberFormat.getNumberInstance(Locale.US).format(populationMap.get(country)))
+                        //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+
     }
+
 
 
     // An AsyncTask class for accessing the GeoCoding Web Service
@@ -385,6 +406,7 @@ public class MyActivity extends FragmentActivity {
             try {
                 // Getting a maximum of 3 Address that matches the input text
                 addresses = geocoder.getFromLocationName(locationName[0], 1);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -423,7 +445,7 @@ public class MyActivity extends FragmentActivity {
                         public void onFinish() {
                             Log.d("animation", "onFinishCalled");
                             //setUpMap(latitude, longtitude);
-                            setUpMap(latLng, addressText, addressText);
+                            setUpMap(latLng, addressText.substring(1), addressText);
 
                         }
 
@@ -434,5 +456,39 @@ public class MyActivity extends FragmentActivity {
                     });
             }
         }
+    }
+
+    private void getPopulations()
+    {
+        InputStream is = null;
+        try {
+
+            is = getAssets().open("countriesData.csv");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                String[] RowData = line.split(",");
+                String name = RowData[0];
+                String capital = RowData[1];
+                String population = RowData[2];
+                String territory = RowData[3];
+                populationMap.put(name, Integer.valueOf(population));
+                //Log.d("Reading Info", "name: " + name + " population: " + population);
+            }
+
+        }
+        catch (IOException ex) {
+            // handle exception
+        }
+        /*finally {
+            try {
+                is.close();
+            }
+            catch (IOException e) {
+                // handle exception
+            }
+        } */
+
     }
 }
