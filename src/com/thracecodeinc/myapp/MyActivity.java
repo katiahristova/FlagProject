@@ -56,7 +56,7 @@ public class MyActivity extends FragmentActivity {
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
-    private Map<String, Integer> populationMap;
+    public static Map<String, Integer> populationMap;
 
     private String correctAnswer;
     private int totalGuesses; // number of guesses made
@@ -73,6 +73,8 @@ public class MyActivity extends FragmentActivity {
     private GoogleMap mMap;
     private LatLng latLng;
     private String addressText;
+
+    private String nextImageName, oldImageName;
 
     private String filenameOld, filenameNew;
 
@@ -151,7 +153,7 @@ public class MyActivity extends FragmentActivity {
     }
 
     private void loadNextFlag() {
-        String nextImageName = quizCountriesList.remove(0);
+        nextImageName = quizCountriesList.remove(0);
         correctAnswer = nextImageName;
 
         answerTextView.setText("");
@@ -167,6 +169,7 @@ public class MyActivity extends FragmentActivity {
         try {
             stream = assets.open(region + "/" + nextImageName + ".png");
             filenameOld = filenameNew;
+            oldImageName = nextImageName;
             filenameNew = region + "/" + nextImageName + ".png";
 
             flag = Drawable.createFromStream(stream, nextImageName);
@@ -379,14 +382,14 @@ public class MyActivity extends FragmentActivity {
 
 
 
-    private void setUpMap(LatLng latLng, String country, String address) {
-        //Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
+    private void setUpMap(LatLng latLng, String country) {
+        //Bitmap bitmap = ((BitmapDrawable)flag).getBitmap()
 
-        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country,populationMap.get(country),filenameOld));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country, filenameOld));
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
-                .title(country)
-                .snippet("Population: " + NumberFormat.getNumberInstance(Locale.US).format(populationMap.get(country)))
+                //.title(country)
+                //.snippet("Population: " + NumberFormat.getNumberInstance(Locale.US).format(populationMap.get(country)))
                         //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
 
@@ -430,7 +433,7 @@ public class MyActivity extends FragmentActivity {
 
                 // Creating an instance of GeoPoint, to display in Google Map
                 latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
+                final String x = address.getCountryName();
                 addressText = String.format("%s %s",
                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                         address.getCountryName());
@@ -445,7 +448,8 @@ public class MyActivity extends FragmentActivity {
                         public void onFinish() {
                             Log.d("animation", "onFinishCalled");
                             //setUpMap(latitude, longtitude);
-                            setUpMap(latLng, addressText.substring(1), addressText);
+
+                            setUpMap(latLng, addressText);
 
                         }
 

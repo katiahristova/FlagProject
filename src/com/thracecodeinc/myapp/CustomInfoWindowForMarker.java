@@ -24,7 +24,7 @@ import java.util.Locale;
     class CustomInfoWindowForMarker implements GoogleMap.InfoWindowAdapter {
         private final View markerView;
 
-        CustomInfoWindowForMarker(Activity a, String country, Integer population, String filenameOld) {
+        CustomInfoWindowForMarker(Activity a, String country, String filenameOld) {
 
             markerView = a.getLayoutInflater()
                     .inflate(R.layout.custom_marker_layout, null);
@@ -50,7 +50,17 @@ import java.util.Locale;
 
             final TextView snippetUi = ((TextView) markerView
                     .findViewById(R.id.snippet));
-            snippetUi.setText("Population: " + NumberFormat.getNumberInstance(Locale.US).format(population));
+
+            String countryName = filenameOld.substring(filenameOld.indexOf("-")+1, filenameOld.indexOf("."));
+
+            int pop = 0;
+            if (MyActivity.populationMap.containsKey(countryName))
+                pop = MyActivity.populationMap.get(countryName);
+
+            Log.d("Country info", "Country: " + countryName + " Population: " + pop);
+
+            if (pop!=0)
+                snippetUi.setText("Population: " + NumberFormat.getNumberInstance(Locale.US).format(pop));
         }
 
         public View getInfoWindow(Marker marker) {
