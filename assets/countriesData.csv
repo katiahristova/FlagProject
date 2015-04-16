@@ -29,24 +29,23 @@ Botswana,Gaborone,1764926,581730
 Brazil,Brasília,186404900,8514877
 Brunei,Bandar Seri Begawan,373819,5765
 Bulgaria,Sofia,7725965,110912
-Burkina Faso,Ouagadougou,13227840,274000
+Burkina_Faso,Ouagadougou,13227840,274000
 Burundi,Bujumbura,7547515,27834
 Cambodia,Phnom Penh,14071010,181035
 Cameroon,Yaoundé,16321860,475442
 Canada,Ottawa,32268240,9970610
-Cape Verde,Praia,506807,4033
+Cape_Verde,Praia,506807,4033
 Cayman_Is,George Town,58435,259
-Central African Republic,Bangui,4037747,622984
+C African Rep,Bangui,4037747,622984
 Chad,N'Djamena,9748931,1284000
 Chile,Valparaíso,16295100,756096
 China,Beijing,1315844000,9596961
 Christmas_Is,Flying Fish Cove,1402,135
 Colombia,Bogotá,45600240,1138914
 Comoros,Moroni,797902,2235
-Congo Democratic Republic of the,Kinshasa,57548740,2344858
-Congo Republic of the",Brazzaville,3998904,342000
+DRO_Congo,Kinshasa,57548740,2344858
 Cook_Islands,Avarua,10900,237
-Costa Rica,San José,4327228,51100
+Costa_Rica,San José,4327228,51100
 Croatia,Zagreb,4551338,56538
 Cuba,Havana,11269400,110861
 Cyprus,Nicosia,264172,3355
@@ -60,7 +59,7 @@ Dutch_Antilles,Willemstad,227049,800
 Ecuador,Quito,13228420,283561
 Egypt,Cairo,74032880,1001449
 El_Salvador,San Salvador,6880951,21041
-Equatorial Guinea,Malabo,503519,28051
+Eq._Guinea,Malabo,503519,28051
 Eritrea,Asmara,4401357,117600
 Estonia,Tallinn,1329697,45100
 Ethiopia,Addis Ababa,77430700,1104300
@@ -82,7 +81,7 @@ Grenada,St. George's,102924,344
 Guam,Hagåtña,165124,549
 Guatemala,Guatemala City,12599060,108889
 Guinea,Conakry,9402098,245857
-Guinea-Bissau,Bissau,1586344,36125
+Guinea_Bissau,Bissau,1586344,36125
 Guyana,Georgetown,751218,214969
 Haiti,Port-au-Prince,8527777,27750
 Honduras,Tegucigalpa,7204723,112088
@@ -96,7 +95,7 @@ Iraq,Baghdad,28807190,438317
 Ireland,Dublin,4147901,70273
 Israel,Jerusalem,6724564,22145
 Italy,Rome,58092740,301318
-Ivory Coast,Abidjan,18153870,322463
+Ivory_Coast,Abidjan,18153870,322463
 Jamaica,Kingston,2650713,10991
 Japan,Tokyo,128084700,377873
 Jordan,Amman,5702776,89342
@@ -162,6 +161,7 @@ Poland,Warsaw,38529560,312685
 Portugal,Lisbon,10494500,91982
 Puerto_Rico,San Juan,3548000,9104
 Qatar,Doha,812842,11000
+RO_Congo,Brazzaville,3998904,342000
 Romania,Bucharest,21711470,238391
 Russia,Moscow,143201600,17098242
 Rwanda,Kigali,9037690,26338
@@ -170,6 +170,7 @@ Saint_Lucia,Castries,160765,539
 Saint_Vicent,Kingstown,119051,388
 Samoa,Apia,184984,2831
 San_Marino,San Marino,28117,61
+Sao_Tome,Sao Tome,192993,964
 Saudi_Arabia,Riyadh,24573100,2149690
 Senegal,Dakar,11658170,196722
 Serbia,Belgrade,9396411,88361
@@ -191,8 +192,7 @@ Swaziland,Lobamba,1032438,17364
 Sweden,Stockholm,9041262,449964
 Switzerland,Bern,7252331,41284
 Syria,Damascus,19043380,185180
-São Tomé and Príncipe,São Tomé,156523,964
-Taiwan (Republic of China),Taipei,22894384,35980
+Taiwan,Taipei,22894384,35980
 Tajikistan,Dushanbe,6506980,143100
 Tanzania,Dar es Salaam,38328810,945087
 Thailand,Bangkok,64232760,513115

@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -283,13 +284,17 @@ public class MyActivity extends FragmentActivity {
 
         menu.add(Menu.NONE, CHOICES_MENU_ID, Menu.NONE, R.string.choices);
         menu.add(Menu.NONE, REGIONS_MENU_ID, Menu.NONE, R.string.regions);
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu_myactivity, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_next_question:
+                Toast.makeText(this, "Hi from Next button", Toast.LENGTH_SHORT).show();
+                break;
             case CHOICES_MENU_ID:
                 final String[] possibleChoices =
                         getResources().getStringArray(R.array.guessesList);
@@ -485,14 +490,14 @@ public class MyActivity extends FragmentActivity {
         catch (IOException ex) {
             // handle exception
         }
-        /*finally {
+        finally {
             try {
                 is.close();
             }
             catch (IOException e) {
                 // handle exception
             }
-        } */
+        }
 
     }
 }
