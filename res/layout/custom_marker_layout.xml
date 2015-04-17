@@ -18,7 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+        <TextView android:layout_width="match_parent"
+                  android:gravity="center"
+                  android:text="next"
+                  android:background="@color/wallet_hint_foreground_holo_dark"
+                  android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -35,6 +39,8 @@
             android:layout_height="wrap_content"
             android:textColor="#ff000000"
             android:textSize="14dp" />
+
+
     </LinearLayout>
 
 </LinearLayout>

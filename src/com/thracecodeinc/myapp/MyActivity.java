@@ -1,4 +1,5 @@
 package com.thracecodeinc.myapp;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,27 +9,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -42,22 +32,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class MyActivity extends FragmentActivity {
     //private static final String TAG = "FlagQuizGame Activity";
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
-    public static Map<String, Integer> populationMap;
 
     private String correctAnswer;
     private int totalGuesses; // number of guesses made
@@ -69,14 +50,13 @@ public class MyActivity extends FragmentActivity {
     private Drawable flag;
     private TextView answerTextView;
     private TextView questionNumberTextView;
-    private ImageView flagImageView;
     private TableLayout buttonTableLayout;
     private GoogleMap mMap;
     private LatLng latLng;
     private String addressText;
-
+    private CustomInfoWindowForMarker customInfoWindowForMarker;
     private String nextImageName, oldImageName;
-
+    private AssetManager assetManager;
     private String filenameOld, filenameNew;
 
 
@@ -85,10 +65,11 @@ public class MyActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        customInfoWindowForMarker = new CustomInfoWindowForMarker();
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
         regionsMap = new HashMap<String, Boolean>();
-        populationMap = new HashMap<String, Integer>();
+
         guessRows = 2;
         random = new Random();
         handler = new Handler();
@@ -101,11 +82,11 @@ public class MyActivity extends FragmentActivity {
         for (String region : regionNames)
             regionsMap.put(region, true);
 
-        getPopulations();
+        assetManager = getAssets();
+        customInfoWindowForMarker.getPopulations(assetManager);
 
         questionNumberTextView =
                 (TextView) findViewById(R.id.questionNumberTextView);
-        flagImageView = (ImageView) findViewById(R.id.flagImageView);
         buttonTableLayout =
                 (TableLayout) findViewById(R.id.buttonTableLayout);
         answerTextView = (TextView) findViewById(R.id.answerTextView);
@@ -118,7 +99,7 @@ public class MyActivity extends FragmentActivity {
     }
 
     private void resetQuiz() {
-        AssetManager assets = getAssets();
+        assetManager = getAssets();
         fileNameList.clear();
 
         try {
@@ -126,7 +107,7 @@ public class MyActivity extends FragmentActivity {
 
             for (String region : regions) {
                 if (regionsMap.get(region)) {
-                    String[] paths = assets.list(region);
+                    String[] paths = assetManager.list(region);
 
                     for (String path : paths)
                         fileNameList.add(path.replace(".png", ""));
@@ -151,9 +132,38 @@ public class MyActivity extends FragmentActivity {
             }
         }
         loadNextFlag();
+
+        handler.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(0,0), (float) 5.00), new GoogleMap.CancelableCallback() {
+
+                            @Override
+                            public void onFinish() {
+                                mMap.clear();
+                                Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(0,0))
+                                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                Log.d("animation", "onCancel");
+                            }
+                        });
+
+
+
+                    }
+                }, 1000);
+
     }
 
     private void loadNextFlag() {
+        if (quizCountriesList.size() > 0)
         nextImageName = quizCountriesList.remove(0);
         correctAnswer = nextImageName;
 
@@ -165,16 +175,16 @@ public class MyActivity extends FragmentActivity {
 
         String region =
                 nextImageName.substring(0, nextImageName.indexOf('-'));
-        AssetManager assets = getAssets(); // get app's AssetManager
+        assetManager = getAssets(); // get app's AssetManager
         InputStream stream;
         try {
-            stream = assets.open(region + "/" + nextImageName + ".png");
+            stream = assetManager.open(region + "/" + nextImageName + ".png");
             filenameOld = filenameNew;
             oldImageName = nextImageName;
             filenameNew = region + "/" + nextImageName + ".png";
 
             flag = Drawable.createFromStream(stream, nextImageName);
-            flagImageView.setImageDrawable(flag);
+
         } catch (IOException e) {
             //Log.e(TAG, "Error loading " + nextImageName, e);
         }
@@ -207,6 +217,7 @@ public class MyActivity extends FragmentActivity {
         TableRow randomTableRow = getTableRow(row);
         String countryName = getCountryName(correctAnswer);
         ((Button) randomTableRow.getChildAt(column)).setText(countryName);
+
     }
 
     private TableRow getTableRow(int row) {
@@ -230,6 +241,14 @@ public class MyActivity extends FragmentActivity {
 
             disableButtons();
             if (correctAnswers == 10) {
+                //just a little delay between the old game and the new game
+                handler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        }, 4000);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 builder.setTitle(R.string.reset_quiz);
@@ -250,16 +269,17 @@ public class MyActivity extends FragmentActivity {
                 AlertDialog resetDialog = builder.create();
                 resetDialog.show();
             } else {
-                handler.postDelayed(
+                /*handler.postDelayed(
                         new Runnable() {
                             @Override
                             public void run() {
                                 loadNextFlag();
                             }
-                        }, 1000);
+                        }, 1000);*/
+
             }
         } else {
-            flagImageView.startAnimation(shakeAnimation);
+            //flagImageView.startAnimation(shakeAnimation);
             answerTextView.setText(R.string.incorrect_answer);
             answerTextView.setTextColor(
                     getResources().getColor(R.color.incorrect_answer));
@@ -380,23 +400,46 @@ public class MyActivity extends FragmentActivity {
             if (mMap != null) {
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
                 mMap.setMyLocationEnabled(true);
-
+                mMap.getUiSettings().setMapToolbarEnabled(false);
             }
+
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+
+                }
+            });
+
         }
     }
 
+    public void showNextFlagMarker(){
+        mMap.clear();
+        Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
+        mMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .snippet("")
+                .icon(BitmapDescriptorFactory.fromBitmap(bitmap))).hideInfoWindow();
+
+    }
 
 
     private void setUpMap(LatLng latLng, String country) {
-        //Bitmap bitmap = ((BitmapDrawable)flag).getBitmap()
-
-        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country, filenameOld));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country, flag, getCountryName(correctAnswer)));
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
-                //.title(country)
-                //.snippet("Population: " + NumberFormat.getNumberInstance(Locale.US).format(populationMap.get(country)))
-                        //.icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                mMap.clear();
+                marker.remove();
+                loadNextFlag();
+                showNextFlagMarker();
+            }
+        });
+
 
     }
 
@@ -467,37 +510,5 @@ public class MyActivity extends FragmentActivity {
         }
     }
 
-    private void getPopulations()
-    {
-        InputStream is = null;
-        try {
 
-            is = getAssets().open("countriesData.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                String[] RowData = line.split(",");
-                String name = RowData[0];
-                String capital = RowData[1];
-                String population = RowData[2];
-                String territory = RowData[3];
-                populationMap.put(name, Integer.valueOf(population));
-                //Log.d("Reading Info", "name: " + name + " population: " + population);
-            }
-
-        }
-        catch (IOException ex) {
-            // handle exception
-        }
-        finally {
-            try {
-                is.close();
-            }
-            catch (IOException e) {
-                // handle exception
-            }
-        }
-
-    }
 }
