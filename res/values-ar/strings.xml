@@ -26,7 +26,7 @@
     <string name="Benin">	بنين	</string>
     <string name="Bhutan">	بوتان	</string>
     <string name="Bolivia">	بوليفيا	</string>
-    <string name="Bosnia">	البوسنة	</string>
+    <string name="Bosnia_and_Herzegovina">	البوسنة	</string>
     <string name="Botswana">	بوتسوانا	</string>
     <string name="Brazil">	البرازيل	</string>
     <string name="Brunei">	بروناي	</string>
@@ -42,7 +42,7 @@
     <string name="Chad">	تشاد	</string>
     <string name="Chile">	تشيلي	</string>
     <string name="China">	الصين	</string>
-    <string name="Christmas_Is">	جزيرة الكريسماس	</string>
+    <string name="Christmas_Island">	جزيرة الكريسماس	</string>
     <string name="Colombia">	كولومبيا	</string>
     <string name="Comoros">	جزر القمر	</string>
     <string name="DRO_Congo">	جمهورية الكونغو الديمقراطية	</string>
@@ -66,7 +66,7 @@
     <string name="Estonia">	استونيا	</string>
     <string name="Ethiopia">	أثيوبيا	</string>
     <string name="Falkland_Is">	جزيرة فوكلاند	</string>
-    <string name="Faroe_Island">	جزيرة فارو	</string>
+    <string name="Faroe_Islands">	جزيرة فارو	</string>
     <string name="Fiji">	فيجي	</string>
     <string name="Finland">	فنلندا	</string>
     <string name="France">	فرنسا	</string>
@@ -117,6 +117,7 @@
     <string name="Liechtenstein">	ليختنشتاين	</string>
     <string name="Lithuania">	ليتوانيا	</string>
     <string name="Luxembourg">	لوكسمبورغ	</string>
+    <string name="Macao"> ماكاو </string>
     <string name="Macedonia">	مقدونيا	</string>
     <string name="Madagascar">	مدغشقر	</string>
     <string name="Malawi">	ملاوي	</string>
@@ -124,7 +125,7 @@
     <string name="Maldives">	جزر المالديف	</string>
     <string name="Mali">	مالي	</string>
     <string name="Malta">	مالطا	</string>
-    <string name="Marshall_Is">	جزيرة مارشال	</string>
+    <string name="Marshall_Islands">	جزيرة مارشال	</string>
     <string name="Martinique">	مارتينيك	</string>
     <string name="Mauritania">	موريتانيا	</string>
     <string name="Mauritius">	موريشيوس	</string>
@@ -184,7 +185,7 @@
     <string name="Somalia">	الصومال	</string>
     <string name="Somaliland">	أرض الصومال	</string>
     <string name="South_Africa">	جنوب أفريقيا	</string>
-    <string name="South_Georgia">	جورجيا الجنوبية	</string>
+    <string name="South_Georgia_Island">	جورجيا الجنوبية	</string>
     <string name="Spain">	إسبانيا	</string>
     <string name="Sri_Lanka">	سيريلانكا	</string>
     <string name="Sudan">	سودان	</string>
@@ -214,7 +215,7 @@
     <string name="United_Kingdom">	المملكة المتحدة	</string>
     <string name="USA">	الولايات المتحدة	</string>
     <string name="Uruguay">	أوروغواي	</string>
-    <string name="US_Virgin_Is">	جزر فيرجن الأمريكية	</string>
+    <string name="US_Virgin_Is.">	جزر فيرجن الأمريكية	</string>
     <string name="Virgin_Islands">	جزر العذراء	</string>
     <string name="Uzbekistan">	أوزبكستان	</string>
     <string name="Vanuatu">	فانواتو	</string>

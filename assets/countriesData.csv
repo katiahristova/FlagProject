@@ -24,7 +24,7 @@ Bermuda,Hamilton,65024,53.2
 Benin,Cotonou,8438853,112622
 Bhutan,Thimphu,2162546,47000
 Bolivia,La Paz,9182015,1098581
-Bosnia,Sarajevo,3907074,51197
+Bosnia_and_Herzegovina,Sarajevo,3907074,51197
 Botswana,Gaborone,1764926,581730
 Brazil,Brasília,186404900,8514877
 Brunei,Bandar Seri Begawan,373819,5765
@@ -36,11 +36,11 @@ Cameroon,Yaoundé,16321860,475442
 Canada,Ottawa,32268240,9970610
 Cape_Verde,Praia,506807,4033
 Cayman_Is,George Town,58435,259
-C African Rep,Bangui,4037747,622984
+C_African_Rep,Bangui,4037747,622984
 Chad,N'Djamena,9748931,1284000
 Chile,Valparaíso,16295100,756096
 China,Beijing,1315844000,9596961
-Christmas_Is,Flying Fish Cove,1402,135
+Christmas_Island,Flying Fish Cove,1402,135
 Colombia,Bogotá,45600240,1138914
 Comoros,Moroni,797902,2235
 DRO_Congo,Kinshasa,57548740,2344858
@@ -64,7 +64,7 @@ Eritrea,Asmara,4401357,117600
 Estonia,Tallinn,1329697,45100
 Ethiopia,Addis Ababa,77430700,1104300
 Falkland_Is,Stanley,2932,12173
-Faroe_Island,Torshavn,49469,1399
+Faroe_Islands,Torshavn,49469,1399
 Fiji,Suva,847706,18274
 Finland,Helsinki,5249060,338145
 France,Paris,60495540,551500
@@ -115,6 +115,7 @@ Libya,Tripoli,5853452,1759540
 Liechtenstein,Vaduz,34521,160
 Lithuania,Vilnius,3431033,65300
 Luxembourg,Luxembourg City,464904,2586
+Macao,Macao,583003,29.5
 Macedonia,Skopje,2034060,25713
 Madagascar,Antananarivo,18605920,587041
 Malawi,Lilongwe,12883940,118484
@@ -122,7 +123,7 @@ Malaysia,Putrajaya,25347370,329847
 Maldives,Malé,329198,298
 Mali,Bamako,13518420,1240192
 Malta,Valletta,401630,316
-Marshall_Is,Majuro,61963,181
+Marshall_Islands,Majuro,61963,181
 Martinique,Fort-de-France,386486,1128
 Mauritania,Nouakchott,3068742,1025520
 Mauritius,Port Louis,1244663,2040
@@ -183,7 +184,7 @@ Soloman_Is,Honiara,477742,28896
 Somalia,Mogadishu,8227826,637657
 Somaliland,Hargeisa,3500000,137600
 South_Africa,Bloemfontein,47431830,1221037
-South_Georgia,Tskhinvali,70000,3900
+South_Georgia_Island,Tskhinvali,70000,3900
 Spain,Madrid,43064190,505992
 Sri_Lanka,Kotte,20742910,65610
 Sudan,Khartoum,36232950,2505813
@@ -201,7 +202,7 @@ Timor_Leste,Dili,1178000,14874
 Togo,Lomé,6145004,56785
 Tonga,Nuku'alofa,102311,747
 Transnistria,Tiraspol,555347,4163
-Trinidad,Port of Spain,1305236,5130
+Trinidad_and_Tobago,Port of Spain,1305236,5130
 Tunisia,Tunis,10102470,163610
 Turkey,Ankara,73192840,783562
 Turkmenistan,Ashgabat,4833266,488100
@@ -213,14 +214,14 @@ UAE,Abu Dhabi,4495823,83600
 United_Kingdom,London,59667840,242900
 USA,Washington D.C.,298212900,9629091
 Uruguay,Montevideo,3463197,175016
-US_Virgin_Is,Charlotte Amalie,104737,346.4
+US_Virgin_Is.,Charlotte Amalie,104737,346.4
 Virgin_Islands,Road Town,23552,153
 Uzbekistan,Tashkent,26593120,447400
 Vanuatu,Port Vila,211367,12189
 Vatican_City,Vatican City,783,0.44
 Venezuela,Caracas,26749110,912050
 Vietnam,Hanoi,84238230,331689
-Wallis_&_Futuna,Mata-Utu,15289,264
+Wallis_and_Futuna,Mata-Utu,15289,264
 Yemen,Sanaá,20974660,527968
 Zambia,Lusaka,11668460,752618
 Zimbabwe,Harare,13009530,390757

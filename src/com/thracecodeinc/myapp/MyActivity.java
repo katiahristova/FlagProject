@@ -1,5 +1,6 @@
 package com.thracecodeinc.myapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -168,6 +169,9 @@ public class MyActivity extends FragmentActivity {
         correctAnswer = nextImageName;
 
         answerTextView.setText("");
+        getActionBar().setTitle(getResources().getString(R.string.question) + " " +
+                (correctAnswers + 1) + " " +
+                getResources().getString(R.string.of) + " 10");
         questionNumberTextView.setText(
                 getResources().getString(R.string.question) + " " +
                         (correctAnswers + 1) + " " +
@@ -207,7 +211,9 @@ public class MyActivity extends FragmentActivity {
                 Button newGuessButton =
                         (Button) inflater.inflate(R.layout.guess_button, null);
                 String fileName = fileNameList.get((row * 3) + column);
-                newGuessButton.setText(getCountryName(fileName));
+                //Set button text to country name from string resource files
+                newGuessButton.setText(getCountryNameFromStrings(this, fileName));
+                //newGuessButton.setText(getCountryName(fileName));
                 newGuessButton.setOnClickListener(guessButtonListener);
                 currentTableRow.addView(newGuessButton);
             }
@@ -215,8 +221,8 @@ public class MyActivity extends FragmentActivity {
         int row = random.nextInt(guessRows);
         int column = random.nextInt(3);
         TableRow randomTableRow = getTableRow(row);
-        String countryName = getCountryName(correctAnswer);
-        ((Button) randomTableRow.getChildAt(column)).setText(countryName);
+        //((Button) randomTableRow.getChildAt(column)).setText(correctAnswer);
+        ((Button) randomTableRow.getChildAt(column)).setText(getCountryNameFromStrings(this, correctAnswer));
 
     }
 
@@ -230,7 +236,7 @@ public class MyActivity extends FragmentActivity {
 
     private void submitGuess(Button guessButton) {
         String guess = guessButton.getText().toString();
-        String answer = getCountryName(correctAnswer);
+        String answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
         ++totalGuesses;
         if (guess.equals(answer)) {
             new GeocoderTask().execute(answer.trim());
@@ -425,7 +431,7 @@ public class MyActivity extends FragmentActivity {
 
 
     private void setUpMap(LatLng latLng, String country) {
-        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, country, flag, getCountryName(correctAnswer)));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, nextImageName, flag, getCountryName(correctAnswer)));
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
@@ -434,14 +440,23 @@ public class MyActivity extends FragmentActivity {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 mMap.clear();
+                mMap.setInfoWindowAdapter(null);
                 marker.remove();
                 loadNextFlag();
                 showNextFlagMarker();
             }
         });
+    }
 
+        public static String getCountryNameFromStrings(Activity a, String fileName)
+    {
+        int resId = a.getResources().getIdentifier(fileName.substring(fileName.indexOf("-")+1), "string", a.getPackageName());
+        Log.d("Country 1", "Country: " + fileName.substring(fileName.indexOf("-")+1));
+        return a.getString(resId);
 
     }
+
+
 
 
 
