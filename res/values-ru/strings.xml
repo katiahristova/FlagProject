@@ -37,7 +37,7 @@
     <string name="Cameroon">	Камерун	</string>
     <string name="Canada">	Канада	</string>
     <string name="Cape_Verde">	Кабо-Верде	</string>
-    <string name="Cayman_Is">	Каймановы Острова	</string>
+    <string name="Cayman_Islands">	Каймановы Острова	</string>
     <string name="C_African_Rep">	Конго	</string>
     <string name="Chad">	Чад	</string>
     <string name="Chile">	Чили	</string>
@@ -56,7 +56,7 @@
     <string name="Denmark">	Дания	</string>
     <string name="Djibouti">	Джибути	</string>
     <string name="Dominica">	Доминика	</string>
-    <string name="Dominican_Rep">	Доминиканская Республика	</string>
+    <string name="Dominican_Republic">	Доминиканская Республика	</string>
     <string name="Dutch_Antilles">	Голландские Антильские острова	</string>
     <string name="Ecuador">	Эквадор	</string>
     <string name="Egypt">	Египет	</string>
@@ -169,7 +169,7 @@
     <string name="Rwanda">	Руанда	</string>
     <string name="Saint_Kitts">	Сент-Китс	</string>
     <string name="Saint_Lucia">	Сент-Люсия	</string>
-    <string name="Saint_Vicent">	Санкт Vicent	</string>
+    <string name="Saint_Vincent_and_the_Grenadines">	Санкт Vicent	</string>
     <string name="Samoa">	Самоа	</string>
     <string name="San_Marino">	Сан - Марино	</string>
     <string name="Sao_Tome">	Сан-Томе	</string>
@@ -203,7 +203,7 @@
     <string name="Togo">	Идти	</string>
     <string name="Tonga">	Тонга	</string>
     <string name="Transnistria">	Приднестровье	</string>
-    <string name="Trinidad_and_Tobago">	Тринидад	</string>
+    <string name="Trinidad_Tobago">	Тринидад	</string>
     <string name="Tunisia">	Тунис	</string>
     <string name="Turkey">	Индейка	</string>
     <string name="Turkmenistan">	Туркменистан	</string>
@@ -215,8 +215,8 @@
     <string name="United_Kingdom">	Великобритания	</string>
     <string name="USA">	Соединенные Штаты	</string>
     <string name="Uruguay">	Уругвай	</string>
-    <string name="US_Virgin_Is.">	Американские Виргинские острова	</string>
-    <string name="Virgin_Islands">	Виргинские острова	</string>
+    <string name="US_Virgin_Islands.">	Американские Виргинские острова	</string>
+    <string name="British_Virgin_Islands">	Виргинские острова	</string>
     <string name="Uzbekistan">	Узбекистан	</string>
     <string name="Vanuatu">	Вануату	</string>
     <string name="Vatican_City">	Ватикан	</string>

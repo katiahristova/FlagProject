@@ -37,7 +37,7 @@
     <string name="Cameroon">	Kamerun	</string>
     <string name="Canada">	Kanada	</string>
     <string name="Cape_Verde">	Cape Verde	</string>
-    <string name="Cayman_Is">	Cayman Adaları	</string>
+    <string name="Cayman_Islands">	Cayman Adaları	</string>
     <string name="C_African_Rep">	Kongo	</string>
     <string name="Chad">	Çad	</string>
     <string name="Chile">	Şili	</string>
@@ -56,7 +56,7 @@
     <string name="Denmark">	Danimarka	</string>
     <string name="Djibouti">	Cibuti	</string>
     <string name="Dominica">	Dominika	</string>
-    <string name="Dominican_Rep">	Dominik Cumhuriyeti	</string>
+    <string name="Dominican_Republic">	Dominik Cumhuriyeti	</string>
     <string name="Dutch_Antilles">	Hollandalı Antilleri	</string>
     <string name="Ecuador">	Ekvador	</string>
     <string name="Egypt">	Mısır	</string>
@@ -169,7 +169,7 @@
     <string name="Rwanda">	Ruanda	</string>
     <string name="Saint_Kitts">	Aziz Kitts	</string>
     <string name="Saint_Lucia">	Lucia	</string>
-    <string name="Saint_Vicent">	Aziz Vicent	</string>
+    <string name="Saint_Vincent_and_the_Grenadines">	Aziz Vicent	</string>
     <string name="Samoa">	Samoa	</string>
     <string name="San_Marino">	San Marino	</string>
     <string name="Sao_Tome">	Sao Tome	</string>
@@ -203,7 +203,7 @@
     <string name="Togo">	Gitmek	</string>
     <string name="Tonga">	Tonga	</string>
     <string name="Transnistria">	Transdinyester	</string>
-    <string name="Trinidad_and_Tobago">	Trinidad	</string>
+    <string name="Trinidad_Tobago">	Trinidad	</string>
     <string name="Tunisia">	Tunus	</string>
     <string name="Turkey">	Türkiye	</string>
     <string name="Turkmenistan">	Türkmenistan	</string>
@@ -215,8 +215,8 @@
     <string name="United_Kingdom">	Birleşik Krallık	</string>
     <string name="USA">	Birleşik Devletler	</string>
     <string name="Uruguay">	Uruguay	</string>
-    <string name="US_Virgin_Is.">	ABD Virgin Adaları	</string>
-    <string name="Virgin_Islands">	Virgin Adaları	</string>
+    <string name="US_Virgin_Islands.">	ABD Virgin Adaları	</string>
+    <string name="British_Virgin_Islands">	Virgin Adaları	</string>
     <string name="Uzbekistan">	Özbekistan	</string>
     <string name="Vanuatu">	Vanuatu	</string>
     <string name="Vatican_City">	Vatikan Şehri	</string>

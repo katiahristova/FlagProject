@@ -37,7 +37,7 @@
     <string name="Cameroon">	الكاميرون	</string>
     <string name="Canada">	كندا	</string>
     <string name="Cape_Verde">	الرأس الأخضر	</string>
-    <string name="Cayman_Is">	جزر كايمان	</string>
+    <string name="Cayman_Islands">	جزر كايمان	</string>
     <string name="C_African_Rep">	الكونغو	</string>
     <string name="Chad">	تشاد	</string>
     <string name="Chile">	تشيلي	</string>
@@ -56,7 +56,7 @@
     <string name="Denmark">	الدنمارك	</string>
     <string name="Djibouti">	جيبوتي	</string>
     <string name="Dominica">	دومينيكا	</string>
-    <string name="Dominican_Rep">	جمهورية الدومينيكان	</string>
+    <string name="Dominican_Republic">	جمهورية الدومينيكان	</string>
     <string name="Dutch_Antilles">	جزر الأنتيل الهولندية	</string>
     <string name="Ecuador">	الإكوادور	</string>
     <string name="Egypt">	مصر	</string>
@@ -169,7 +169,7 @@
     <string name="Rwanda">	رواندا	</string>
     <string name="Saint_Kitts">	سانت كيتس	</string>
     <string name="Saint_Lucia">	سانت لوسيا	</string>
-    <string name="Saint_Vicent">	سانت فنسنت	</string>
+    <string name="Saint_Vincent_and_the_Grenadines">	سانت فنسنت	</string>
     <string name="Samoa">	ساموا	</string>
     <string name="San_Marino">	سان مارينو	</string>
     <string name="Sao_Tome">	ساو تومي	</string>
@@ -203,7 +203,7 @@
     <string name="Togo">	توغو	</string>
     <string name="Tonga">	تونغا	</string>
     <string name="Transnistria">	ترانسنيستريا	</string>
-    <string name="Trinidad">	ترينيداد	</string>
+    <string name="Trinidad_Tobago">	ترينيداد	</string>
     <string name="Tunisia">	تونس	</string>
     <string name="Turkey">	ديك رومي	</string>
     <string name="Turkmenistan">	تركمانستان	</string>
@@ -215,8 +215,8 @@
     <string name="United_Kingdom">	المملكة المتحدة	</string>
     <string name="USA">	الولايات المتحدة	</string>
     <string name="Uruguay">	أوروغواي	</string>
-    <string name="US_Virgin_Is.">	جزر فيرجن الأمريكية	</string>
-    <string name="Virgin_Islands">	جزر العذراء	</string>
+    <string name="US_Virgin_Islands.">	جزر فيرجن الأمريكية	</string>
+    <string name="British_Virgin_Islands">	جزر العذراء	</string>
     <string name="Uzbekistan">	أوزبكستان	</string>
     <string name="Vanuatu">	فانواتو	</string>
     <string name="Vatican_City">	مدينة الفاتيكان	</string>
