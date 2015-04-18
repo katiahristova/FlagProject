@@ -24,7 +24,7 @@ Bermuda,Hamilton,65024,53.2
 Benin,Cotonou,8438853,112622
 Bhutan,Thimphu,2162546,47000
 Bolivia,La Paz,9182015,1098581
-Bosnia_and_Herzegovina,Sarajevo,3907074,51197
+Bosnia_Herzegovina,Sarajevo,3907074,51197
 Botswana,Gaborone,1764926,581730
 Brazil,Brasília,186404900,8514877
 Brunei,Bandar Seri Begawan,373819,5765
@@ -35,7 +35,7 @@ Cambodia,Phnom Penh,14071010,181035
 Cameroon,Yaoundé,16321860,475442
 Canada,Ottawa,32268240,9970610
 Cape_Verde,Praia,506807,4033
-Cayman_Is,George Town,58435,259
+Cayman_Islands,George Town,58435,259
 C_African_Rep,Bangui,4037747,622984
 Chad,N'Djamena,9748931,1284000
 Chile,Valparaíso,16295100,756096
@@ -54,7 +54,7 @@ Czech_Republic,Prague,10219600,78866
 Denmark,Copenhagen,5430590,43094
 Djibouti,Djibouti City,793078,23200
 Dominica,Roseau,78940,751
-Dominican_Rep,Santo Domingo,8894907,48671
+Dominican_Republic,Santo Domingo,8894907,48671
 Dutch_Antilles,Willemstad,227049,800
 Ecuador,Quito,13228420,283561
 Egypt,Cairo,74032880,1001449
@@ -168,7 +168,7 @@ Russia,Moscow,143201600,17098242
 Rwanda,Kigali,9037690,26338
 Saint_Kitts,Basseterre,42696,261
 Saint_Lucia,Castries,160765,539
-Saint_Vicent,Kingstown,119051,388
+Saint_Vincent_and_the_Grenadines,Kingstown,119051,388
 Samoa,Apia,184984,2831
 San_Marino,San Marino,28117,61
 Sao_Tome,Sao Tome,192993,964
@@ -202,7 +202,7 @@ Timor_Leste,Dili,1178000,14874
 Togo,Lomé,6145004,56785
 Tonga,Nuku'alofa,102311,747
 Transnistria,Tiraspol,555347,4163
-Trinidad_and_Tobago,Port of Spain,1305236,5130
+Trinidad_Tobago,Port of Spain,1305236,5130
 Tunisia,Tunis,10102470,163610
 Turkey,Ankara,73192840,783562
 Turkmenistan,Ashgabat,4833266,488100
@@ -214,8 +214,8 @@ UAE,Abu Dhabi,4495823,83600
 United_Kingdom,London,59667840,242900
 USA,Washington D.C.,298212900,9629091
 Uruguay,Montevideo,3463197,175016
-US_Virgin_Is.,Charlotte Amalie,104737,346.4
-Virgin_Islands,Road Town,23552,153
+US_Virgin_Islands.,Charlotte Amalie,104737,346.4
+British_Virgin_Islands,Road Town,23552,153
 Uzbekistan,Tashkent,26593120,447400
 Vanuatu,Port Vila,211367,12189
 Vatican_City,Vatican City,783,0.44

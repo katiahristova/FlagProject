@@ -37,7 +37,7 @@ public class MyActivity extends FragmentActivity {
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
-
+    private String answer;
     private String correctAnswer;
     private int totalGuesses; // number of guesses made
     private int correctAnswers; // number of correct guesses
@@ -62,6 +62,7 @@ public class MyActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        getActionBar().setTitle(R.string.guess_country);
 
         customInfoWindowForMarker = new CustomInfoWindowForMarker();
         fileNameList = new ArrayList<String>();
@@ -97,6 +98,7 @@ public class MyActivity extends FragmentActivity {
     }
 
     private void resetQuiz() {
+
         assetManager = getAssets();
         fileNameList.clear();
 
@@ -119,11 +121,13 @@ public class MyActivity extends FragmentActivity {
         totalGuesses = 0;
         quizCountriesList.clear();
 
-        int flagCounter = 1;
+        //int flagCounter = 1;
+        int flagCounter = 0;
         int numberOfFlags = fileNameList.size();
-        while (flagCounter <= 10) {
-            int randomIndex = random.nextInt(numberOfFlags);
-            String fileName = fileNameList.get(randomIndex);
+        while (flagCounter <= numberOfFlags-1) {
+            //int randomIndex = random.nextInt(numberOfFlags);
+            //String fileName = fileNameList.get(randomIndex);
+            String fileName = fileNameList.get(flagCounter);
             if (!quizCountriesList.contains(fileName)) {
                 quizCountriesList.add(fileName);
                 ++flagCounter;
@@ -141,6 +145,7 @@ public class MyActivity extends FragmentActivity {
                             @Override
                             public void onFinish() {
                                 mMap.clear();
+                                mMap.setInfoWindowAdapter(null);
                                 Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
                                 mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(0,0))
@@ -166,9 +171,9 @@ public class MyActivity extends FragmentActivity {
         correctAnswer = nextImageName;
 
         answerTextView.setText("");
-        getActionBar().setTitle(getResources().getString(R.string.question) + " " +
+        /*getActionBar().setTitle(getResources().getString(R.string.question) + " " +
                 (correctAnswers + 1) + " " +
-                getResources().getString(R.string.of) + " 10");
+                getResources().getString(R.string.of) + " 10");*/
         questionNumberTextView.setText(
                 getResources().getString(R.string.question) + " " +
                         (correctAnswers + 1) + " " +
@@ -204,10 +209,10 @@ public class MyActivity extends FragmentActivity {
         for (int row = 0; row < guessRows; row++) {
             TableRow currentTableRow = getTableRow(row);
 
-            for (int column = 0; column < 3; column++) {
+            for (int column = 0; column < 2; column++) {
                 Button newGuessButton =
                         (Button) inflater.inflate(R.layout.guess_button, null);
-                String fileName = fileNameList.get((row * 3) + column);
+                String fileName = fileNameList.get((row * 2) + column);
                 //Set button text to country name from string resource files
                 newGuessButton.setText(getCountryNameFromStrings(this, fileName));
                 //newGuessButton.setText(getCountryName(fileName));
@@ -216,7 +221,7 @@ public class MyActivity extends FragmentActivity {
             }
         }
         int row = random.nextInt(guessRows);
-        int column = random.nextInt(3);
+        int column = random.nextInt(2);
         TableRow randomTableRow = getTableRow(row);
         //((Button) randomTableRow.getChildAt(column)).setText(correctAnswer);
         ((Button) randomTableRow.getChildAt(column)).setText(getCountryNameFromStrings(this, correctAnswer));
@@ -233,17 +238,17 @@ public class MyActivity extends FragmentActivity {
 
     private void submitGuess(Button guessButton) {
         String guess = guessButton.getText().toString();
-        String answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
+        answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
         ++totalGuesses;
         if (guess.equals(answer)) {
-            new GeocoderTask().execute(answer.trim());
+            new GeocoderTask().execute(getCountryName(correctAnswer));
             ++correctAnswers;
             answerTextView.setText(answer + "!");
             answerTextView.setTextColor(
                     getResources().getColor(R.color.correct_answer));
 
             disableButtons();
-            if (correctAnswers == 10) {
+            if (correctAnswers == fileNameList.size()) {
                 //just a little delay between the old game and the new game
                 handler.postDelayed(
                         new Runnable() {
@@ -330,7 +335,7 @@ public class MyActivity extends FragmentActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
                                 guessRows = Integer.parseInt(
-                                        possibleChoices[item].toString()) / 3;
+                                        possibleChoices[item].toString()) / 2;
                                 resetQuiz();
                             }
                         }
@@ -468,8 +473,9 @@ public class MyActivity extends FragmentActivity {
 
             try {
                 // Getting a maximum of 3 Address that matches the input text
-                addresses = geocoder.getFromLocationName(locationName[0], 1);
-
+                addresses = geocoder.getFromLocationName(locationName[0], 3);
+                if (addresses.size()!=0)
+                Log.d("adress ","1"+addresses.get(0));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -481,6 +487,7 @@ public class MyActivity extends FragmentActivity {
 
             if (addresses == null || addresses.size() == 0) {
                 Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+                new GeocoderTask().execute(answer.trim());
             }
 
             // Clears all the existing markers on the map
@@ -490,6 +497,7 @@ public class MyActivity extends FragmentActivity {
             for (int i = 0; i < addresses.size(); i++) {
 
                 address = addresses.get(i);
+                Log.d("adress ","2"+address);
 
                 // Creating an instance of GeoPoint, to display in Google Map
                 latLng = new LatLng(address.getLatitude(), address.getLongitude());

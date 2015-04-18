@@ -31,27 +31,18 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="3dp"
       android:layout_marginTop="3dp"
-      android:textColor="@color/text_color" 
+      android:textColor="@color/wallet_holo_blue_light"
       android:textSize="@dimen/text_size"
       android:layout_gravity="center"
       android:gravity="center"></TextView>
       
 
       
-   <TextView android:id="@+id/guessCountryTextView"
-      android:layout_width="wrap_content" 
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="5dp"
-       android:layout_marginTop="5dp"
-      android:text="@string/guess_country" 
-      android:textColor="@color/text_color"
-      android:textSize="@dimen/text_size"></TextView>
-      
    <TableLayout android:id="@+id/buttonTableLayout" 
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:stretchColumns="0,1,2">
+      android:stretchColumns="0,1">
       <TableRow android:id="@+id/tableRow0" 
          android:layout_width="wrap_content"
          android:layout_marginBottom="5dp"
