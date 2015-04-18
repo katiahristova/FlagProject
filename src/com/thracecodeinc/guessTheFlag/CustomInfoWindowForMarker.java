@@ -1,4 +1,4 @@
-package com.thracecodeinc.myapp;
+package com.thracecodeinc.guessTheFlag;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.wearable.Asset;
-import com.thracecodeinc.guessTheFlag.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

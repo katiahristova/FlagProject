@@ -1,4 +1,4 @@
-package com.thracecodeinc.myapp;
+package com.thracecodeinc.guessTheFlag;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,12 +27,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.thracecodeinc.guessTheFlag.R;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class MyActivity extends FragmentActivity {
