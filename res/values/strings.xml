@@ -67,7 +67,7 @@
     <string name="Canada">	Canada	</string>
     <string name="Cape_Verde">	Cape Verde	</string>
     <string name="Cayman_Islands">	Cayman Islands	</string>
-    <string name="C_African_Rep">	Congo	</string>
+    <string name="Central_African_Republic">Central African Republic </string>
     <string name="Chad">	Chad	</string>
     <string name="Chile">	Chile	</string>
     <string name="China">	China	</string>
@@ -90,7 +90,7 @@
     <string name="Ecuador">	Ecuador	</string>
     <string name="Egypt">	Egypt	</string>
     <string name="El_Salvador">	El Salvador	</string>
-    <string name="Eq._Guinea">	Equatorial Guinea	</string>
+    <string name="Equatorial_Guinea">	Equatorial Guinea	</string>
     <string name="Eritrea">	Eritrea	</string>
     <string name="Estonia">	Estonia	</string>
     <string name="Ethiopia">	Ethiopia	</string>
@@ -192,7 +192,7 @@
     <string name="Portugal">	Portugal	</string>
     <string name="Puerto_Rico">	Puerto Rico	</string>
     <string name="Qatar">	Qatar	</string>
-    <string name="RO_Congo">	Republic of Congo	</string>
+    <string name="Republic_Of_Congo">	Republic of Congo	</string>
     <string name="Romania">	Romania	</string>
     <string name="Russia">	Russia	</string>
     <string name="Rwanda">	Rwanda	</string>
