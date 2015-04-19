@@ -29,16 +29,16 @@ public class startPage extends Activity{
 
         boolean online= (dataOn || wifiOn) && networkAllowed;
 
-
+        if (!online)
+        {
+            Intent i = new Intent(this, OflineGameClass.class);
+            startActivity(i);
+            finish();
+        } else {
             Intent i = new Intent(this, MyActivity.class);
             i.putExtra("online", online);
             startActivity(i);
             finish();
-
-
-        if (!online)
-        {
-            Toast.makeText(this,"No Network",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -46,7 +46,7 @@ public class startPage extends Activity{
     //Get the DATA state
     public boolean dataState() {
         boolean mobileDataEnabled = false; // Assume disabled
-        if (isOnline()) {
+        if (SharedMethods.isOnline(getApplicationContext())) {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             try {
                 Class cmClass = Class.forName(cm.getClass().getName());
@@ -62,16 +62,11 @@ public class startPage extends Activity{
         return mobileDataEnabled;
     }
 
-    public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
+
 
     //Get the wifi state
     public boolean wifiState() {
-        if (isOnline()){
+        if (SharedMethods.isOnline(getApplicationContext())){
             WifiManager mng = (WifiManager) getSystemService(Context.WIFI_SERVICE);
             if (mng.isWifiEnabled())
                 return true;

@@ -28,7 +28,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -64,7 +63,7 @@ public class MyActivity extends FragmentActivity {
     private LatLng defaultLatLng;
     private boolean isInternetWorking;
     private boolean firstRun;
-
+    private Context myActivityContext;
     private boolean correctAnswerGiven = false;
 
     @Override
@@ -74,6 +73,7 @@ public class MyActivity extends FragmentActivity {
         String actionBarTitle = getString(R.string.guess_country);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
+        myActivityContext = getApplicationContext();
         Intent intent = getIntent();
         isInternetWorking = intent.getBooleanExtra("online", false);
         Log.d("inernet", "* " + isInternetWorking);
@@ -195,8 +195,10 @@ public class MyActivity extends FragmentActivity {
     }
 
     private void loadNextFlag() {
+
+
         if (quizCountriesList.size() > 0)
-        nextImageName = quizCountriesList.remove(0);
+            nextImageName = quizCountriesList.remove(0);
         correctAnswer = nextImageName;
 
         //answerTextView.setText("");
@@ -270,13 +272,13 @@ public class MyActivity extends FragmentActivity {
         answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
         ++totalGuesses;
         if (guess.equals(answer)) {
-            nextButton.setVisibility(View.VISIBLE);
             correctAnswerGiven = true;
+            guessButton.setTextColor(getResources().getColor(R.color.correct_answer));
             new GeocoderTask().execute(getCountryName(correctAnswer));
             ++correctAnswers;
             //answerTextView.setText(answer + "!");
             //answerTextView.setTextColor(
-             //       getResources().getColor(R.color.correct_answer));
+            //       getResources().getColor(R.color.correct_answer));
 
             disableButtons();
 
@@ -431,28 +433,18 @@ public class MyActivity extends FragmentActivity {
     }
 
 
-    private void setUpMap(LatLng latLng, String country) {
+    private void setUpMap(LatLng latLng) {
         mMap.setInfoWindowAdapter(new CustomInfoWindowForMarker(this, nextImageName, flag, getCountryName(correctAnswer)));
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                mMap.clear();
-                mMap.setInfoWindowAdapter(null);
-                marker.remove();
-                loadNextFlag();
-                showNextFlagMarker();
-            }
-        });
     }
 
-        public static String getCountryNameFromStrings(Activity a, String fileName)
+    public static String getCountryNameFromStrings(Activity a, String fileName)
     {
-        int resId = a.getResources().getIdentifier(fileName.substring(fileName.indexOf("-")+1), "string", a.getPackageName());
-        Log.d("Country 1", "Country: " + fileName.substring(fileName.indexOf("-")+1));
+        int resId = a.getResources().getIdentifier(fileName.substring(fileName.indexOf("-") + 1), "string", a.getPackageName());
+        Log.d("Country 1", "Country: " + fileName.substring(fileName.indexOf("-") + 1));
         return a.getString(resId);
 
     }
@@ -465,6 +457,11 @@ public class MyActivity extends FragmentActivity {
     private class GeocoderTask extends AsyncTask<String, Void, List<Address>> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+        @Override
         protected List<Address> doInBackground(String... locationName) {
             // Creating an instance of Geocoder class
             Geocoder geocoder = new Geocoder(getBaseContext());
@@ -474,7 +471,7 @@ public class MyActivity extends FragmentActivity {
                 // Getting a maximum of 3 Address that matches the input text
                 addresses = geocoder.getFromLocationName(locationName[0], 3);
                 if (addresses.size()!=0)
-                Log.d("adress ","1"+addresses.get(0));
+                    Log.d("adress ","1"+addresses.get(0));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -483,110 +480,103 @@ public class MyActivity extends FragmentActivity {
 
         @Override
         protected void onPostExecute(List<Address> addresses) {
-         if (isInternetWorking){
-            if (addresses == null || addresses.size() == 0) {
-                Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+            if (!SharedMethods.isOnline(getApplicationContext()))
+                SharedMethods.networkModePopup(MyActivity.this);
+            else {
+                if (addresses == null || addresses.size() == 0) {
+                    Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
 
-                if (firstRun) {
-                    new GeocoderTask().execute(answer.trim());
-                    firstRun = false;
+                    if (firstRun) {
+                        new GeocoderTask().execute(answer.trim());
+                        firstRun = false;
+                    } else resetQuiz();
                 }
-                else resetQuiz();
-            }
 
-            // Clears all the existing markers on the map
-            mMap.clear();
+                // Clears all the existing markers on the map
+                mMap.clear();
 
 
                 Address address;
-            // Adding Markers on Google Map for each matching address
-            for (int i = 0; i < addresses.size(); i++) {
+                // Adding Markers on Google Map for each matching address
+                for (int i = 0; i < addresses.size(); i++) {
 
-                address = addresses.get(i);
-                Log.d("adress ", "2" + address);
+                    address = addresses.get(i);
+                    Log.d("adress ", "2" + address);
 
-                // Creating an instance of GeoPoint, to display in Google Map
-                latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                //final String x = address.getCountryName();
-                addressText = String.format("%s %s",
-                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                        address.getCountryName());
+                    // Creating an instance of GeoPoint, to display in Google Map
+                    latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    //final String x = address.getCountryName();
+                    addressText = String.format("%s %s",
+                            address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                            address.getCountryName());
 
 
-                // Locate the first location
-                if (i == 0)
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                            latLng, (float) 5.00), new GoogleMap.CancelableCallback() {
+                    // Locate the first location
+                    if (i == 0)
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                latLng, (float) 5.00), new GoogleMap.CancelableCallback() {
 
-                        @Override
-                        public void onFinish() {
-                            Log.d("animation", "onFinishCalled");
-                            //setUpMap(latitude, longtitude);
+                            @Override
+                            public void onFinish() {
+                                Log.d("animation", "onFinishCalled");
+                                //setUpMap(latitude, longtitude);
 
-                            setUpMap(latLng, addressText);
+                                setUpMap(latLng);
 
-                            if (correctAnswers == 10) {
-                                handler.postDelayed(
-                                        new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                gameFinishedPopup();
-                                            }
-                                        }, 1000);
+                                if (correctAnswers == 10) {
+                                    handler.postDelayed(
+                                            new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    gameFinishedPopup();
+                                                }
+                                            }, 1000);
 
+                                } else nextButton.setVisibility(View.VISIBLE);
                             }
-                        }
 
-                        @Override
-                        public void onCancel() {
-                            Log.d("animation", "onCancel");
-                        }
-                    });
-            }
-        } else {
-                defaultLocation();
+                            @Override
+                            public void onCancel() {
+                                Log.d("animation", "onCancel");
+                            }
+                        });
+                }
             }
         }
-    }
+        }
+
 
 
     public void gameFinishedPopup(){
+        nextButton.setVisibility(View.INVISIBLE);
+        //just a little delay between the old game and the new game
+        float scorePrcntg = 1000 / (float) totalGuesses;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            //just a little delay between the old game and the new game
-            float scorePrcntg = 1000 / (float) totalGuesses;
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.reset_quiz);
+        builder.setIcon(SharedMethods.emoticon(scorePrcntg));
+        builder.setMessage(String.format("%d %s, %.02f%% %s",
+                totalGuesses, getResources().getString(R.string.guesses),
+                (scorePrcntg),
+                getResources().getString(R.string.correct)));
 
-            builder.setTitle(R.string.reset_quiz);
-            builder.setIcon(emoticon(scorePrcntg));
-            builder.setMessage(String.format("%d %s, %.02f%% %s",
-                    totalGuesses, getResources().getString(R.string.guesses),
-                    (scorePrcntg),
-                    getResources().getString(R.string.correct)));
-
-            builder.setCancelable(true);
-            builder.setPositiveButton(R.string.reset_quiz,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            resetQuiz();
-                        }
+        builder.setCancelable(true);
+        builder.setPositiveButton(R.string.reset_quiz,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        resetQuiz();
                     }
-            );
-            AlertDialog resetDialog = builder.create();
-            resetDialog.show();
+                }
+        );
+        AlertDialog resetDialog = builder.create();
+        resetDialog.show();
 
     }
 
     public void resetGamePopup(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        TextView title = new TextView(this);
-// You Can Customise your Title here
-        title.setText(R.string.reset_quiz);
-        //title.setBackgroundColor(Color.BLUE);
-        //title.setPadding(10, 10, 10, 10);
-        title.setGravity(Gravity.CENTER);
-        title.setTextColor(Color.WHITE);
-        title.setTextSize(20);
-        builder.setCustomTitle(title);
+
+        builder.setCustomTitle(SharedMethods.customText(getApplicationContext()));
 
         builder.setCancelable(true);
         builder.setPositiveButton("Yes",
@@ -601,37 +591,8 @@ public class MyActivity extends FragmentActivity {
                 dialog.dismiss();
             }
         });
-                AlertDialog resetDialog = builder.create();
+        AlertDialog resetDialog = builder.create();
         resetDialog.show();
     }
 
-    public int emoticon(float score){
-        if (score < 25)
-            return R.drawable.very_bad;
-        else if (score < 50)
-            return R.drawable.bad;
-        else if (score < 70)
-            return R.drawable.average;
-        else if (score < 90)
-            return R.drawable.better;
-        else
-            return R.drawable.exelent;
-
     }
-
-    public void defaultLocation(){
-
-                setUpMap(defaultLatLng, addressText);
-
-                if (correctAnswers == 10) {
-                    handler.postDelayed(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    gameFinishedPopup();
-                                }
-                            }, 1000);
-
-                }
-    }
-}

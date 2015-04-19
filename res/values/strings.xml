@@ -10,10 +10,12 @@
     <string name="more_regions_title">More Regions Required</string>
    <string name="more_regions_message">There are not enough countries in
       the selected regions. Please select more regions.</string>
-    <string name="of">of</string>
+    <string name="of">/</string>
     <string name="ok">OK</string>
     <string name="question">Question</string>
-    <string name="quiz_title">Ten Question Flag Quiz</string>
+    <string name="quiz_title">Guess the country</string>
+    <string name="ofline_mode">offline mode</string>
+    <string name="online_mode">online mode</string>
     <string name="regions">Select Regions</string>
     <string name="reset_quiz">Reset Quiz</string>
     <string-array name="regionsList">
