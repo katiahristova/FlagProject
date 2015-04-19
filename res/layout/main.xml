@@ -60,12 +60,11 @@
          android:orientation="horizontal"></TableRow>
    </TableLayout>
    
-   <TextView android:id="@+id/answerTextView"
-      android:layout_width="match_parent" 
-      android:layout_height="wrap_content"
-      android:textSize="@dimen/answer_size" 
-      android:layout_gravity="center"
-      android:textStyle="bold"
-      android:gravity="center"></TextView>
+   <Button
+       android:id="@+id/buttonNext"
+       android:gravity="center"
+       android:layout_width="@dimen/answer_size"
+       android:layout_height="@dimen/answer_size"
+       android:background="@drawable/button_next"/>
 </LinearLayout>
 </LinearLayout>

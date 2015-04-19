@@ -18,7 +18,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
-import android.util.Range;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -50,7 +49,7 @@ public class MyActivity extends FragmentActivity {
     private Handler handler;
     private Animation shakeAnimation;
     private Drawable flag;
-    private TextView answerTextView;
+    //private TextView answerTextView;
     private TextView questionNumberTextView;
     private TableLayout buttonTableLayout;
     private GoogleMap mMap;
@@ -61,9 +60,12 @@ public class MyActivity extends FragmentActivity {
     private AssetManager assetManager;
     private String filenameOld, filenameNew;
     private Button newGuessButton;
+    private Button nextButton;
     private LatLng defaultLatLng;
     private boolean isInternetWorking;
     private boolean firstRun;
+
+    private boolean correctAnswerGiven = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,21 @@ public class MyActivity extends FragmentActivity {
                 (TextView) findViewById(R.id.questionNumberTextView);
         buttonTableLayout =
                 (TableLayout) findViewById(R.id.buttonTableLayout);
-        answerTextView = (TextView) findViewById(R.id.answerTextView);
+        //ne = (TextView) findViewById(R.id.answerTextView);
+        nextButton = (Button) findViewById(R.id.buttonNext);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              if (correctAnswerGiven) {
+                                                  correctAnswerGiven = false;
+                                                  mMap.clear();
+                                                  mMap.setInfoWindowAdapter(null);
+                                                  loadNextFlag();
+                                                  showNextFlagMarker();
+                                              }
+                                          }
+                                      }
+        );
         questionNumberTextView.setText(
                 getResources().getString(R.string.question) + " 1 " +
                         getResources().getString(R.string.of) + " 10");
@@ -182,7 +198,7 @@ public class MyActivity extends FragmentActivity {
         nextImageName = quizCountriesList.remove(0);
         correctAnswer = nextImageName;
 
-        answerTextView.setText("");
+        //answerTextView.setText("");
         /*getActionBar().setTitle(getResources().getString(R.string.question) + " " +
                 (correctAnswers + 1) + " " +
                 getResources().getString(R.string.of) + " 10");*/
@@ -253,11 +269,12 @@ public class MyActivity extends FragmentActivity {
         answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
         ++totalGuesses;
         if (guess.equals(answer)) {
+            correctAnswerGiven = true;
             new GeocoderTask().execute(getCountryName(correctAnswer));
             ++correctAnswers;
-            answerTextView.setText(answer + "!");
-            answerTextView.setTextColor(
-                    getResources().getColor(R.color.correct_answer));
+            //answerTextView.setText(answer + "!");
+            //answerTextView.setTextColor(
+             //       getResources().getColor(R.color.correct_answer));
 
             disableButtons();
 
@@ -265,9 +282,9 @@ public class MyActivity extends FragmentActivity {
             //flagImageView.startAnimation(shakeAnimation);
             guessButton.setTextColor(getResources().getColor(R.color.incorrect_answer));
             guessButton.startAnimation(shakeAnimation);
-            answerTextView.setText(R.string.incorrect_answer);
-            answerTextView.setTextColor(
-                    getResources().getColor(R.color.incorrect_answer));
+            //answerTextView.setText(R.string.incorrect_answer);
+            //answerTextView.setTextColor(
+            //        getResources().getColor(R.color.incorrect_answer));
             guessButton.setEnabled(false);
         }
     }
