@@ -113,6 +113,7 @@ public class MyActivity extends FragmentActivity {
                                                   mMap.clear();
                                                   mMap.setInfoWindowAdapter(null);
                                                   loadNextFlag();
+                                                  nextButton.setVisibility(View.INVISIBLE);
                                                   showNextFlagMarker();
                                               }
                                           }
@@ -269,6 +270,7 @@ public class MyActivity extends FragmentActivity {
         answer = getCountryName(getCountryNameFromStrings(this,correctAnswer));
         ++totalGuesses;
         if (guess.equals(answer)) {
+            nextButton.setVisibility(View.VISIBLE);
             correctAnswerGiven = true;
             new GeocoderTask().execute(getCountryName(correctAnswer));
             ++correctAnswers;
