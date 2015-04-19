@@ -29,14 +29,14 @@ public class startPage extends Activity{
 
         boolean online= (dataOn || wifiOn) && networkAllowed;
 
-        if (online)
-        {
+
             Intent i = new Intent(this, MyActivity.class);
+            i.putExtra("online", online);
             startActivity(i);
             finish();
-        }
 
-        else
+
+        if (!online)
         {
             Toast.makeText(this,"No Network",Toast.LENGTH_SHORT).show();
         }

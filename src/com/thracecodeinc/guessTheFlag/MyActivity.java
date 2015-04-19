@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -14,7 +16,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
 import android.util.Log;
+import android.util.Range;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -56,14 +60,23 @@ public class MyActivity extends FragmentActivity {
     private String nextImageName, oldImageName;
     private AssetManager assetManager;
     private String filenameOld, filenameNew;
-
+    private Button newGuessButton;
+    private LatLng defaultLatLng;
+    private boolean isInternetWorking;
+    private boolean firstRun;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        getActionBar().setTitle(R.string.guess_country);
+        String actionBarTitle = getString(R.string.guess_country);
+        getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
+        Intent intent = getIntent();
+        isInternetWorking = intent.getBooleanExtra("online", false);
+        Log.d("inernet", "* " + isInternetWorking);
+
+        firstRun = true;
         customInfoWindowForMarker = new CustomInfoWindowForMarker();
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
@@ -72,7 +85,7 @@ public class MyActivity extends FragmentActivity {
         guessRows = 2;
         random = new Random();
         handler = new Handler();
-
+        defaultLatLng = new LatLng(0,0);
         shakeAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.incorrect_shake);
         shakeAnimation.setRepeatCount(3);
@@ -121,18 +134,17 @@ public class MyActivity extends FragmentActivity {
         totalGuesses = 0;
         quizCountriesList.clear();
 
-        //int flagCounter = 1;
-        int flagCounter = 0;
+        int flagCounter = 1;
         int numberOfFlags = fileNameList.size();
-        while (flagCounter <= numberOfFlags-1) {
-            //int randomIndex = random.nextInt(numberOfFlags);
-            //String fileName = fileNameList.get(randomIndex);
-            String fileName = fileNameList.get(flagCounter);
+        while (flagCounter <= 10) {
+            int randomIndex = random.nextInt(numberOfFlags);
+            String fileName = fileNameList.get(randomIndex);
             if (!quizCountriesList.contains(fileName)) {
                 quizCountriesList.add(fileName);
                 ++flagCounter;
             }
         }
+        Collections.shuffle(quizCountriesList);
         loadNextFlag();
 
         handler.postDelayed(
@@ -210,7 +222,7 @@ public class MyActivity extends FragmentActivity {
             TableRow currentTableRow = getTableRow(row);
 
             for (int column = 0; column < 2; column++) {
-                Button newGuessButton =
+                newGuessButton =
                         (Button) inflater.inflate(R.layout.guess_button, null);
                 String fileName = fileNameList.get((row * 2) + column);
                 //Set button text to country name from string resource files
@@ -248,46 +260,11 @@ public class MyActivity extends FragmentActivity {
                     getResources().getColor(R.color.correct_answer));
 
             disableButtons();
-            if (correctAnswers == fileNameList.size()) {
-                //just a little delay between the old game and the new game
-                handler.postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() {
 
-                            }
-                        }, 4000);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-                builder.setTitle(R.string.reset_quiz);
-
-                builder.setMessage(String.format("%d %s, %.02f%% %s",
-                        totalGuesses, getResources().getString(R.string.guesses),
-                        (1000 / (double) totalGuesses),
-                        getResources().getString(R.string.correct)));
-
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.reset_quiz,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                resetQuiz();
-                            }
-                        }
-                );
-                AlertDialog resetDialog = builder.create();
-                resetDialog.show();
-            } else {
-                /*handler.postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                loadNextFlag();
-                            }
-                        }, 1000);*/
-
-            }
         } else {
             //flagImageView.startAnimation(shakeAnimation);
+            guessButton.setTextColor(getResources().getColor(R.color.incorrect_answer));
+            guessButton.startAnimation(shakeAnimation);
             answerTextView.setText(R.string.incorrect_answer);
             answerTextView.setTextColor(
                     getResources().getColor(R.color.incorrect_answer));
@@ -320,8 +297,8 @@ public class MyActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_next_question:
-                Toast.makeText(this, "Hi from Next button", Toast.LENGTH_SHORT).show();
+            case R.id.menu_new_game:
+                resetGamePopup();
                 break;
             case CHOICES_MENU_ID:
                 final String[] possibleChoices =
@@ -422,6 +399,9 @@ public class MyActivity extends FragmentActivity {
     }
 
     public void showNextFlagMarker(){
+
+        if (!isInternetWorking)
+            latLng = new LatLng(0,0);
         mMap.clear();
         Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
         mMap.addMarker(new MarkerOptions()
@@ -484,24 +464,31 @@ public class MyActivity extends FragmentActivity {
 
         @Override
         protected void onPostExecute(List<Address> addresses) {
-
+         if (isInternetWorking){
             if (addresses == null || addresses.size() == 0) {
                 Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
-                new GeocoderTask().execute(answer.trim());
+
+                if (firstRun) {
+                    new GeocoderTask().execute(answer.trim());
+                    firstRun = false;
+                }
+                else resetQuiz();
             }
 
             // Clears all the existing markers on the map
             mMap.clear();
-            Address address;
+
+
+                Address address;
             // Adding Markers on Google Map for each matching address
             for (int i = 0; i < addresses.size(); i++) {
 
                 address = addresses.get(i);
-                Log.d("adress ","2"+address);
+                Log.d("adress ", "2" + address);
 
                 // Creating an instance of GeoPoint, to display in Google Map
                 latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                final String x = address.getCountryName();
+                //final String x = address.getCountryName();
                 addressText = String.format("%s %s",
                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                         address.getCountryName());
@@ -519,6 +506,16 @@ public class MyActivity extends FragmentActivity {
 
                             setUpMap(latLng, addressText);
 
+                            if (correctAnswers == 10) {
+                                handler.postDelayed(
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                gameFinishedPopup();
+                                            }
+                                        }, 1000);
+
+                            }
                         }
 
                         @Override
@@ -527,8 +524,95 @@ public class MyActivity extends FragmentActivity {
                         }
                     });
             }
+        } else {
+                defaultLocation();
+            }
         }
     }
 
 
+    public void gameFinishedPopup(){
+
+            //just a little delay between the old game and the new game
+            float scorePrcntg = 1000 / (float) totalGuesses;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(R.string.reset_quiz);
+            builder.setIcon(emoticon(scorePrcntg));
+            builder.setMessage(String.format("%d %s, %.02f%% %s",
+                    totalGuesses, getResources().getString(R.string.guesses),
+                    (scorePrcntg),
+                    getResources().getString(R.string.correct)));
+
+            builder.setCancelable(true);
+            builder.setPositiveButton(R.string.reset_quiz,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            resetQuiz();
+                        }
+                    }
+            );
+            AlertDialog resetDialog = builder.create();
+            resetDialog.show();
+
+    }
+
+    public void resetGamePopup(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        TextView title = new TextView(this);
+// You Can Customise your Title here
+        title.setText(R.string.reset_quiz);
+        //title.setBackgroundColor(Color.BLUE);
+        //title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        builder.setCustomTitle(title);
+
+        builder.setCancelable(true);
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        resetQuiz();
+                    }
+                }
+        );
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+                AlertDialog resetDialog = builder.create();
+        resetDialog.show();
+    }
+
+    public int emoticon(float score){
+        if (score < 25)
+            return R.drawable.very_bad;
+        else if (score < 50)
+            return R.drawable.bad;
+        else if (score < 70)
+            return R.drawable.average;
+        else if (score < 90)
+            return R.drawable.better;
+        else
+            return R.drawable.exelent;
+
+    }
+
+    public void defaultLocation(){
+
+                setUpMap(defaultLatLng, addressText);
+
+                if (correctAnswers == 10) {
+                    handler.postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    gameFinishedPopup();
+                                }
+                            }, 1000);
+
+                }
+    }
 }
