@@ -60,8 +60,6 @@ public class MyActivity extends FragmentActivity {
     private String filenameOld, filenameNew;
     private Button newGuessButton;
     private Button nextButton;
-    private LatLng defaultLatLng;
-    private boolean isInternetWorking;
     private boolean firstRun;
     private Context myActivityContext;
     private boolean correctAnswerGiven = false;
@@ -74,9 +72,7 @@ public class MyActivity extends FragmentActivity {
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
         myActivityContext = getApplicationContext();
-        Intent intent = getIntent();
-        isInternetWorking = intent.getBooleanExtra("online", false);
-        Log.d("inernet", "* " + isInternetWorking);
+
 
         firstRun = true;
         customInfoWindowForMarker = new CustomInfoWindowForMarker();
@@ -87,7 +83,6 @@ public class MyActivity extends FragmentActivity {
         guessRows = 2;
         random = new Random();
         handler = new Handler();
-        defaultLatLng = new LatLng(0,0);
         shakeAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.incorrect_shake);
         shakeAnimation.setRepeatCount(3);
@@ -420,9 +415,6 @@ public class MyActivity extends FragmentActivity {
     }
 
     public void showNextFlagMarker(){
-
-        if (!isInternetWorking)
-            latLng = new LatLng(0,0);
         mMap.clear();
         Bitmap bitmap = ((BitmapDrawable)flag).getBitmap();
         mMap.addMarker(new MarkerOptions()

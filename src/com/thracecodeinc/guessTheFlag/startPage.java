@@ -36,7 +36,6 @@ public class startPage extends Activity{
             finish();
         } else {
             Intent i = new Intent(this, MyActivity.class);
-            i.putExtra("online", online);
             startActivity(i);
             finish();
         }
