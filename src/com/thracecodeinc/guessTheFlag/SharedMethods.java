@@ -14,7 +14,8 @@ import android.widget.TextView;
  * Created by Samurai on 4/19/15.
  */
 public class SharedMethods {
-
+    static AlertDialog resetDialog;
+    private static boolean exitGame;
     private static Intent i = null;
     public static boolean isOnline(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -31,15 +32,17 @@ public class SharedMethods {
             title = "Internet connection lost";
             message = "Would you like to continue playing ofline?";
             i = new Intent(context, OflineGameClass.class);
+            exitGame = true;
 
         } else if (context instanceof OflineGameClass){
             title = "Internet connection on";
             message = "Would you like to go back to the map?";
             i = new Intent(context, MyActivity.class);
+            exitGame = false;
         }
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle(title);
 
@@ -56,15 +59,20 @@ public class SharedMethods {
         builder.setNegativeButton("no",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        if (exitGame) {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        } else {
+                            resetDialog.dismiss();
+                        }
+
                     }
                 }
         );
 
-        AlertDialog resetDialog = builder.create();
+        resetDialog = builder.create();
         resetDialog.show();
 
     }
