@@ -31,10 +31,10 @@ public class SharedMethods {
         if (context instanceof MyActivity) {
             title = "Internet connection lost";
             message = "Would you like to continue playing ofline?";
-            i = new Intent(context, OflineGameClass.class);
+            i = new Intent(context, OfflineGameClass.class);
             exitGame = true;
 
-        } else if (context instanceof OflineGameClass){
+        } else if (context instanceof OfflineGameClass){
             title = "Internet connection on";
             message = "Would you like to go back to the map?";
             i = new Intent(context, MyActivity.class);

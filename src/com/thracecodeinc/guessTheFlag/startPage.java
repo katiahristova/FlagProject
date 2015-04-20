@@ -7,6 +7,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
@@ -15,6 +18,9 @@ import java.lang.reflect.Method;
  * Created by katiahristova on 4/17/15.
  */
 public class startPage extends Activity{
+
+    Button playButton;
+    Button playOfflineButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,7 @@ public class startPage extends Activity{
 
         boolean online= (dataOn || wifiOn) && networkAllowed;
 
+        /*
         if (!online)
         {
             Intent i = new Intent(this, OflineGameClass.class);
@@ -38,8 +45,27 @@ public class startPage extends Activity{
             Intent i = new Intent(this, MyActivity.class);
             startActivity(i);
             finish();
-        }
+        } */
 
+        playButton = (Button) findViewById(R.id.buttonPlay);
+        playOfflineButton = (Button) findViewById(R.id.buttonPlayOffline);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MyActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        playOfflineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),OfflineGameClass.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     //Get the DATA state

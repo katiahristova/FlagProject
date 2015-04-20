@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/icon"
-        android:src="@drawable/globe"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        />
-    <TextView
-        android:id="@+id/network_message"
-        android:text="You need to connect to the Internet to play Guess the Flag"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:background="@drawable/flags"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-        />
-</LinearLayout>
+    <Button android:id="@+id/buttonPlay"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_shape"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:text="Play With Map"
+        android:textColor="@color/white"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+    </Button>
+
+    <Button android:id="@+id/buttonPlayOffline"
+        android:layout_above="@+id/buttonPlay"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_shape"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Play Without Map"
+        android:textColor="@color/white"
+        android:orientation="horizontal">
+    </Button>
+
+</RelativeLayout>

@@ -25,7 +25,14 @@
         android:gravity="center_horizontal" >
 
 
-   
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="@dimen/answer_size"
+            android:layout_height="@dimen/answer_size"
+            android:gravity="right"
+            android:visibility="invisible"
+            android:background="@drawable/button_next"/>
+
    <TextView android:id="@+id/questionNumberTextView"
       android:layout_width="match_parent" 
       android:layout_height="wrap_content"
@@ -35,12 +42,13 @@
       android:textSize="@dimen/text_size"
       android:layout_gravity="center"
       android:gravity="center"></TextView>
-      
 
-      
-   <TableLayout android:id="@+id/buttonTableLayout" 
+
+
+   <TableLayout android:id="@+id/buttonTableLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+       android:layout_gravity="top"
       android:layout_weight="1"
       android:stretchColumns="0,1">
       <TableRow android:id="@+id/tableRow0" 
@@ -59,13 +67,6 @@
          android:layout_height="wrap_content"
          android:orientation="horizontal"></TableRow>
    </TableLayout>
-   
-   <Button
-       android:id="@+id/buttonNext"
-       android:gravity="center"
-       android:layout_width="@dimen/answer_size"
-       android:layout_height="@dimen/answer_size"
-       android:visibility="invisible"
-       android:background="@drawable/button_next"/>
+
 </LinearLayout>
 </LinearLayout>

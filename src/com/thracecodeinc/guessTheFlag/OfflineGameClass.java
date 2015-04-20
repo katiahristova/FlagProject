@@ -5,12 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,7 +35,7 @@ import java.util.Set;
 /**
  * Created by Samurai on 4/19/15.
  */
-public class OflineGameClass extends Activity{
+public class OfflineGameClass extends Activity{
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
@@ -58,7 +56,7 @@ public class OflineGameClass extends Activity{
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ofline_game);
+        setContentView(R.layout.offline_game);
         String actionBarTitle = getString(R.string.ofline_mode);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
@@ -88,8 +86,8 @@ public class OflineGameClass extends Activity{
     }
     private void resetQuiz()
     {
-        if (SharedMethods.isOnline(OflineGameClass.this))
-            SharedMethods.networkModePopup(OflineGameClass.this);
+        if (SharedMethods.isOnline(OfflineGameClass.this))
+            SharedMethods.networkModePopup(OfflineGameClass.this);
 
         AssetManager assets = getAssets();
         fileNameList.clear();
