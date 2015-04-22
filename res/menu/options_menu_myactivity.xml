@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/menu_item_return_home"
         android:icon ="@drawable/button_home"
-        android:title = "Home"
+        android:title = "@string/home"
         android:showAsAction="ifRoom|withText"/>
     <item android:id="@+id/menu_new_game"
         android:icon = "@drawable/new_game"
-        android:title = "New Game"
+        android:title = "@string/new_game"
         android:showAsAction="always">
     </item>
 </menu>

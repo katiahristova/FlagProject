@@ -30,10 +30,9 @@ import java.util.Map;
 
     CustomInfoWindowForMarker() {
         this.markerView = null;
-        //populationMap = new HashMap<String, Integer>();
     }
 
-    CustomInfoWindowForMarker(Activity a, String fileName, Drawable flag_old, String countryName) {
+    CustomInfoWindowForMarker(Activity a, String fileName, Drawable flag_old) {
 
             markerView = a.getLayoutInflater()
                     .inflate(R.layout.custom_marker_layout, null);
@@ -50,12 +49,9 @@ import java.util.Map;
 
             Log.d("Country info", "Country: " + country);
             titleUi.setText(MyActivity.getCountryNameFromStrings(a, country));
-            //titleUi.setText(countryName);
 
             final TextView snippetUi = ((TextView) markerView
                     .findViewById(R.id.snippet));
-
-            //String countryName = filenameOld.substring(filenameOld.indexOf("-")+1, filenameOld.indexOf("."));
 
             int pop = 0;
             if (populationMap.containsKey(country))
@@ -64,7 +60,7 @@ import java.util.Map;
             Log.d("Country info", "Country: " + country + " Population: " + pop);
 
             if (pop!=0)
-                snippetUi.setText("Population: " + NumberFormat.getNumberInstance(Locale.US).format(pop));
+                snippetUi.setText(a.getResources().getString(R.string.population) + ": " + NumberFormat.getNumberInstance(Locale.US).format(pop));
 
 
         }

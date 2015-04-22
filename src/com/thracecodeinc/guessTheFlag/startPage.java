@@ -105,7 +105,7 @@ public class startPage extends Activity{
                         }
                 );
 
-                regionsBuilder.setPositiveButton("OK",
+                regionsBuilder.setPositiveButton(getString(R.string.ok),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int button) {
@@ -113,7 +113,7 @@ public class startPage extends Activity{
                             }
                         });
 
-                regionsBuilder.setNegativeButton("cancel",
+                regionsBuilder.setNegativeButton(R.string.cancel,
 
                               new DialogInterface.OnClickListener() {
                                     @Override

@@ -59,14 +59,18 @@ public class OfflineGameClass extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.offline_game);
+
         String actionBarTitle = getString(R.string.offline_mode);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
+
+
 
         guessRows = getIntent().getIntExtra("guessRows", guessRows);
 
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
         regionsMap = new HashMap<String, Boolean>();
+
         guessRows = getIntent().getIntExtra("guessRows",2);
         startedByUser = getIntent().getBooleanExtra("startedByUser",false);
         random = new Random();
@@ -77,6 +81,7 @@ public class OfflineGameClass extends Activity {
             getResources().getStringArray(R.array.regionsList);
         for (String region : regionNames )
             regionsMap.put(region, true);
+        regionsMap.putAll((HashMap<String,Boolean>) getIntent().getSerializableExtra("regionsMap"));
         questionNumberTextView =
                 (TextView) findViewById(R.id.questionNumberTextView);
         flagImageView = (ImageView) findViewById(R.id.flagImageView);
@@ -270,15 +275,10 @@ public class OfflineGameClass extends Activity {
                 tableRow.getChildAt(i).setEnabled(false);
         }
     }
-    private final int CHOICES_MENU_ID = Menu.FIRST;
-    private final int REGIONS_MENU_ID = Menu.FIRST + 1;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        menu.add(Menu.NONE, CHOICES_MENU_ID, Menu.NONE, R.string.choices);
-        menu.add(Menu.NONE, REGIONS_MENU_ID, Menu.NONE, R.string.regions);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu_myactivity, menu);
         return true;
@@ -289,78 +289,11 @@ public class OfflineGameClass extends Activity {
 
         switch (item.getItemId()) {
             case R.id.menu_item_return_home:
-                Intent intent = new Intent(this, startPage.class);
-                startActivity(intent);
-                finish();
+                SharedMethods.quitGamePopup(this);
                 break;
             case R.id.menu_new_game:
                 resetGamePopup();
                 break;
-            case CHOICES_MENU_ID:
-                final String[] possibleChoices =
-                        getResources().getStringArray(R.array.guessesList);
-
-                AlertDialog.Builder choicesBuilder =
-                        new AlertDialog.Builder(this);
-                choicesBuilder.setTitle(R.string.choices);
-
-                choicesBuilder.setItems(R.array.guessesList,
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int item)
-                            {
-                                guessRows = Integer.parseInt(
-                                        possibleChoices[item].toString()) / 2;
-                                resetQuiz();
-                            }
-                        }
-                );
-                AlertDialog choicesDialog = choicesBuilder.create();
-                choicesDialog.show();
-                return true;
-
-            case REGIONS_MENU_ID:
-                final String[] regionNames =
-                        regionsMap.keySet().toArray(new String[regionsMap.size()]);
-
-                boolean[] regionsEnabled = new boolean[regionsMap.size()];
-                for (int i = 0; i < regionsEnabled.length; ++i)
-                    regionsEnabled[i] = regionsMap.get(regionNames[i]);
-                AlertDialog.Builder regionsBuilder =
-                        new AlertDialog.Builder(this);
-                regionsBuilder.setTitle(R.string.regions);
-
-                String[] displayNames = new String[regionNames.length];
-                for (int i = 0; i < regionNames.length; ++i)
-                    displayNames[i] = regionNames[i].replace('_', ' ');
-
-                regionsBuilder.setMultiChoiceItems(
-                        displayNames, regionsEnabled,
-                        new DialogInterface.OnMultiChoiceClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked)
-                            {
-                                regionsMap.put(
-                                        regionNames[which].toString(), isChecked);
-                            }
-                        }
-                );
-
-                regionsBuilder.setPositiveButton(R.string.reset_quiz,
-                        new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int button)
-                            {
-                                resetQuiz();
-                            }
-                        }
-                );
-                AlertDialog regionsDialog = regionsBuilder.create();
-                regionsDialog.show();
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -380,14 +313,14 @@ public class OfflineGameClass extends Activity {
         builder.setCustomTitle(SharedMethods.customText(getApplicationContext()));
 
         builder.setCancelable(true);
-        builder.setPositiveButton("Yes",
+        builder.setPositiveButton(getString(R.string.yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         resetQuiz();
                     }
                 }
         );
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }

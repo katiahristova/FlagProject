@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Guess The Flag</string>
-    <string name="title_activity_maps">Map</string>
-
+    <string name="app_name">Fun With Flags</string>
     <string name="choices">Select Number of Choices</string>
     <string name="correct">correct</string>
     <string name="guess_country">Guess the Country</string>
@@ -13,12 +11,25 @@
       the selected regions. Please select more regions.</string>
     <string name="of">/</string>
     <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="home">Home</string>
+    <string name="new_game">New Game</string>
     <string name="question">Question</string>
-    <string name="quiz_title">Guess the country</string>
     <string name="offline_mode">Offline Mode</string>
-    <string name="online_mode">Online Mode</string>
+    <string name="play_with_map">Play With Map</string>
+    <string name="play_without_map">Play Without Map</string>
     <string name="regions">Select Regions</string>
     <string name="reset_quiz">Reset Quiz</string>
+    <string name="no_location_found">No Location found</string>
+    <string name="population">Population</string>
+    <string name="internet_off">No Internet connection</string>
+    <string name="play_offline">Would you like to play offline?</string>
+    <string name="internet_on">Internet connection on</string>
+    <string name="back_to_map">Would you like to go back to the map?</string>
+    <string name="quit_game">Quit Game</string>
+    <string name="quit_the_game">Do you want to quit this game?</string>
     <string-array name="regionsList">
         <item>Africa</item>
         <item>Asia</item>

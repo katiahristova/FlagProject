@@ -24,26 +24,60 @@ public class SharedMethods {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
+    //Used when the home button is pressed
+    public static void quitGamePopup(final Context context){
+
+        String title = context.getString(R.string.quit_game);
+        String message = context.getString(R.string.quit_the_game);
+
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        builder.setCancelable(true);
+        builder.setPositiveButton(context.getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                         Intent i = new Intent(context, startPage.class);
+                         context.startActivity(i);
+                    }
+                }
+        );
+        builder.setNegativeButton(context.getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                            resetDialog.dismiss();
+                    }
+                }
+        );
+
+        resetDialog = builder.create();
+        resetDialog.show();
+
+    }
+
     public static void networkModePopup(final Context context){
 
         String title = "";
         String message = "";
         if (context instanceof MyActivity) {
-            title = "Internet connection lost";
-            message = "Would you like to continue playing offline?";
+            title = context.getResources().getString(R.string.internet_off);
+            message = context.getResources().getString(R.string.play_offline);
             i = new Intent(context, OfflineGameClass.class);
             exitGame = 1;
 
         } else if (context instanceof OfflineGameClass){
-            title = "Internet connection on";
-            message = "Would you like to go back to the map?";
+            title = context.getResources().getString(R.string.internet_on);
+            message = context.getResources().getString(R.string.back_to_map);
             i = new Intent(context, MyActivity.class);
             exitGame = 2;
         }
 
         else if (context instanceof startPage){
-            title = "Internet connection is off";
-            message = "Would you like to play offline?";
+            title = context.getResources().getString(R.string.internet_off);
+            message = context.getResources().getString(R.string.play_offline);
             i = new Intent(context, OfflineGameClass.class);
             exitGame = 3;
         }
@@ -54,7 +88,7 @@ public class SharedMethods {
         builder.setMessage(message);
 
         builder.setCancelable(false);
-        builder.setPositiveButton("yes",
+        builder.setPositiveButton(context.getString(R.string.yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (exitGame!=3)
@@ -64,7 +98,7 @@ public class SharedMethods {
                     }
                 }
         );
-        builder.setNegativeButton("no",
+        builder.setNegativeButton(context.getString(R.string.no),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (exitGame==1) {

@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:padding="5dp"
         android:layout_height="wrap_content"
-        android:text="Play With Map"
+        android:text="@string/play_with_map"
         android:textColor="@color/white"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -36,7 +36,7 @@
         android:padding="5dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="Play Without Map"
+        android:text="@string/play_without_map"
         android:textColor="@color/white"
         android:orientation="horizontal">
     </Button>
@@ -50,7 +50,7 @@
         android:padding="5dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="Select Regions"
+        android:text="@string/regions"
         android:textColor="@color/white"
         android:orientation="horizontal">
     </Button>
