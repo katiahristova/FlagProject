@@ -15,8 +15,8 @@
     <string name="ok">OK</string>
     <string name="question">Question</string>
     <string name="quiz_title">Guess the country</string>
-    <string name="ofline_mode">offline mode</string>
-    <string name="online_mode">online mode</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="online_mode">Online Mode</string>
     <string name="regions">Select Regions</string>
     <string name="reset_quiz">Reset Quiz</string>
     <string-array name="regionsList">

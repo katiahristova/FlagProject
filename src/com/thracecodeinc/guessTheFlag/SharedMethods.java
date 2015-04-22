@@ -15,7 +15,7 @@ import android.widget.TextView;
  */
 public class SharedMethods {
     static AlertDialog resetDialog;
-    private static boolean exitGame;
+    private static int exitGame;
     private static Intent i = null;
     public static boolean isOnline(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -30,18 +30,23 @@ public class SharedMethods {
         String message = "";
         if (context instanceof MyActivity) {
             title = "Internet connection lost";
-            message = "Would you like to continue playing ofline?";
+            message = "Would you like to continue playing offline?";
             i = new Intent(context, OfflineGameClass.class);
-            exitGame = true;
+            exitGame = 1;
 
         } else if (context instanceof OfflineGameClass){
             title = "Internet connection on";
             message = "Would you like to go back to the map?";
             i = new Intent(context, MyActivity.class);
-            exitGame = false;
+            exitGame = 2;
         }
 
-
+        else if (context instanceof startPage){
+            title = "Internet connection is off";
+            message = "Would you like to play offline?";
+            i = new Intent(context, OfflineGameClass.class);
+            exitGame = 3;
+        }
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle(title);
@@ -52,14 +57,17 @@ public class SharedMethods {
         builder.setPositiveButton("yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        context.startActivity(i);
+                        if (exitGame!=3)
+                            context.startActivity(i);
+                        else
+                            startPage.playOfflineButton.performClick();
                     }
                 }
         );
         builder.setNegativeButton("no",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (exitGame) {
+                        if (exitGame==1) {
                             Intent intent = new Intent(Intent.ACTION_MAIN);
                             intent.addCategory(Intent.CATEGORY_HOME);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -81,13 +89,13 @@ public class SharedMethods {
         if (score < 25)
             return R.drawable.very_bad;
         else if (score < 50)
-            return R.drawable.bad;
+            return R.drawable.smiley_bad;
         else if (score < 70)
-            return R.drawable.average;
+            return R.drawable.smiley_average;
         else if (score < 90)
             return R.drawable.better;
         else
-            return R.drawable.exelent;
+            return R.drawable.excellent;
 
     }
 

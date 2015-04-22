@@ -80,7 +80,7 @@ public class MyActivity extends FragmentActivity {
         quizCountriesList = new ArrayList<String>();
         regionsMap = new HashMap<String, Boolean>();
 
-        guessRows = 2;
+        guessRows = getIntent().getIntExtra("guessRows", 2);
         random = new Random();
         handler = new Handler();
         shakeAnimation =
@@ -90,6 +90,7 @@ public class MyActivity extends FragmentActivity {
                 getResources().getStringArray(R.array.regionsList);
         for (String region : regionNames)
             regionsMap.put(region, true);
+        regionsMap.putAll((HashMap<String,Boolean>) getIntent().getSerializableExtra("regionsMap"));
 
         assetManager = getAssets();
         customInfoWindowForMarker.getPopulations(assetManager);
@@ -303,8 +304,9 @@ public class MyActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, CHOICES_MENU_ID, Menu.NONE, R.string.choices);
-        menu.add(Menu.NONE, REGIONS_MENU_ID, Menu.NONE, R.string.regions);
+        //menu.add(Menu.NONE, CHOICES_MENU_ID, Menu.NONE, R.string.choices);
+        //menu.add(Menu.NONE, REGIONS_MENU_ID, Menu.NONE, R.string.regions);
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu_myactivity, menu);
         return true;
@@ -313,6 +315,11 @@ public class MyActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_item_return_home:
+                Intent intent = new Intent(this, startPage.class);
+                startActivity(intent);
+                finish();
+                break;
             case R.id.menu_new_game:
                 resetGamePopup();
                 break;

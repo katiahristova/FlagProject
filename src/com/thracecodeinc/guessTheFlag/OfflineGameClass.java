@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ import java.util.Set;
 /**
  * Created by Samurai on 4/19/15.
  */
-public class OfflineGameClass extends Activity{
+public class OfflineGameClass extends Activity {
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
@@ -51,19 +52,23 @@ public class OfflineGameClass extends Activity{
     private TextView questionNumberTextView;
     private ImageView flagImageView;
     private TableLayout buttonTableLayout;
+    private boolean startedByUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.offline_game);
-        String actionBarTitle = getString(R.string.ofline_mode);
+        String actionBarTitle = getString(R.string.offline_mode);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
+
+        guessRows = getIntent().getIntExtra("guessRows", guessRows);
 
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
         regionsMap = new HashMap<String, Boolean>();
-        guessRows = 2;
+        guessRows = getIntent().getIntExtra("guessRows",2);
+        startedByUser = getIntent().getBooleanExtra("startedByUser",false);
         random = new Random();
         handler = new Handler();
         shakeAnimation =
@@ -86,7 +91,7 @@ public class OfflineGameClass extends Activity{
     }
     private void resetQuiz()
     {
-        if (SharedMethods.isOnline(OfflineGameClass.this))
+        if (SharedMethods.isOnline(OfflineGameClass.this) && !startedByUser)
             SharedMethods.networkModePopup(OfflineGameClass.this);
 
         AssetManager assets = getAssets();
@@ -281,7 +286,13 @@ public class OfflineGameClass extends Activity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
+            case R.id.menu_item_return_home:
+                Intent intent = new Intent(this, startPage.class);
+                startActivity(intent);
+                finish();
+                break;
             case R.id.menu_new_game:
                 resetGamePopup();
                 break;

@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout1"
-    android:background="@drawable/flags"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/background_color"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    <ImageView
+        android:id="@+id/globePicture"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/globe_of_flags"/>
 
     <Button android:id="@+id/buttonPlay"
         android:layout_width="match_parent"
         android:background="@drawable/button_shape"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:padding="5dp"
         android:layout_height="wrap_content"
         android:text="Play With Map"
@@ -21,10 +28,9 @@
     </Button>
 
     <Button android:id="@+id/buttonPlayOffline"
-        android:layout_above="@+id/buttonPlay"
         android:layout_width="match_parent"
         android:background="@drawable/button_shape"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="5dp"
@@ -35,4 +41,18 @@
         android:orientation="horizontal">
     </Button>
 
-</RelativeLayout>
+    <Button android:id="@+id/buttonSelectRegions"
+        android:layout_width="match_parent"
+        android:background="@drawable/button_shape"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Select Regions"
+        android:textColor="@color/white"
+        android:orientation="horizontal">
+    </Button>
+
+</LinearLayout>
