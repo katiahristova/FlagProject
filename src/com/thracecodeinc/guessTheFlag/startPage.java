@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,7 +24,7 @@ public class startPage extends Activity{
     static Button playOfflineButton;
     Button selectRegionsButton;
     int guessRows = 0;
-
+    int counter = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +82,10 @@ public class startPage extends Activity{
                 final String[] regionNames =
                         regionsMap.keySet().toArray(new String[regionsMap.size()]);
 
-                boolean[] regionsEnabled = new boolean[regionsMap.size()];
+                final boolean[] regionsEnabled = new boolean[regionsMap.size()];
                 for (int i = 0; i < regionsEnabled.length; ++i)
                     regionsEnabled[i] = regionsMap.get(regionNames[i]);
-                AlertDialog.Builder regionsBuilder =
+                final AlertDialog.Builder regionsBuilder =
                         new AlertDialog.Builder(startPage.this);
                 regionsBuilder.setTitle(R.string.regions);
 
@@ -93,14 +94,29 @@ public class startPage extends Activity{
                     displayNames[i] = regionNames[i].replace('_', ' ');
 
 
+
+
                 regionsBuilder.setMultiChoiceItems(
                         displayNames, regionsEnabled,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
                                                 boolean isChecked) {
-                                regionsMap.put(
-                                        regionNames[which].toString(), isChecked);
+                            for (int i = 0; i < regionsEnabled.length; ++i) {
+                                if (!regionsEnabled[i])
+                                    counter++;
+                                Log.d("which"," "+counter);
+                            }
+
+                                if (counter < 6) {
+                                    //((AlertDialog) dialog).getListView().setItemChecked(which, false);
+                                    regionsMap.put(
+                                            regionNames[which].toString(), isChecked);
+                                } else {
+                                    ((AlertDialog) dialog).getListView().setItemChecked(which, true);
+                                }
+
+                                counter = 0;
                             }
                         }
                 );
@@ -115,12 +131,12 @@ public class startPage extends Activity{
 
                 regionsBuilder.setNegativeButton(R.string.cancel,
 
-                              new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int button) {
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int button) {
 
-                                    }
-                                }
+                            }
+                        }
                 );
                 AlertDialog regionsDialog = regionsBuilder.create();
                 regionsDialog.show();
