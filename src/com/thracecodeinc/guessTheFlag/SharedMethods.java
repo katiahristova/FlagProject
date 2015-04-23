@@ -10,6 +10,9 @@ import android.net.NetworkInfo;
 import android.view.Gravity;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Samurai on 4/19/15.
  */
@@ -58,7 +61,7 @@ public class SharedMethods {
 
     }
 
-    public static void networkModePopup(final Context context){
+    public static void networkModePopup(final Context context, HashMap<String,Boolean> regionsMap, int guessRows){
 
         String title = "";
         String message = "";
@@ -66,12 +69,16 @@ public class SharedMethods {
             title = context.getResources().getString(R.string.internet_off);
             message = context.getResources().getString(R.string.play_offline);
             i = new Intent(context, OfflineGameClass.class);
+            i.putExtra("regionsMap", regionsMap);
+            i.putExtra("guessRows", guessRows);
             exitGame = 1;
 
         } else if (context instanceof OfflineGameClass){
             title = context.getResources().getString(R.string.internet_on);
             message = context.getResources().getString(R.string.back_to_map);
             i = new Intent(context, MyActivity.class);
+            i.putExtra("regionsMap", regionsMap);
+            i.putExtra("guessRows", guessRows);
             exitGame = 2;
         }
 

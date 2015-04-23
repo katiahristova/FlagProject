@@ -60,7 +60,7 @@ public class startPage extends Activity{
                 else
                 {
                     if (!SharedMethods.isOnline(getApplicationContext()))
-                        SharedMethods.networkModePopup(startPage.this);
+                        SharedMethods.networkModePopup(startPage.this, regionsMap, guessRows);
                 }
             }
         });

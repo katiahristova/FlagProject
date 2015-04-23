@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -97,7 +98,7 @@ public class OfflineGameClass extends Activity {
     private void resetQuiz()
     {
         if (SharedMethods.isOnline(OfflineGameClass.this) && !startedByUser)
-            SharedMethods.networkModePopup(OfflineGameClass.this);
+            SharedMethods.networkModePopup(OfflineGameClass.this, (HashMap) regionsMap, guessRows);
 
         AssetManager assets = getAssets();
         fileNameList.clear();
@@ -184,7 +185,7 @@ public class OfflineGameClass extends Activity {
                 Button newGuessButton =
                         (Button) inflater.inflate(R.layout.guess_button, null);
                 String fileName = fileNameList.get((row * 2) + column);
-                newGuessButton.setText(getCountryName(fileName));
+                newGuessButton.setText(getCountryNameFromStrings(this, fileName));
                 newGuessButton.setOnClickListener(guessButtonListener);
                 currentTableRow.addView(newGuessButton);
             }
@@ -192,8 +193,7 @@ public class OfflineGameClass extends Activity {
         int row = random.nextInt(guessRows);
         int column = random.nextInt(2);
         TableRow randomTableRow = getTableRow(row);
-        String countryName = getCountryName(correctAnswer);
-        ((Button)randomTableRow.getChildAt(column)).setText(countryName);
+        ((Button)randomTableRow.getChildAt(column)).setText(getCountryNameFromStrings(this, correctAnswer));
     }
     private TableRow getTableRow(int row)
     {
@@ -206,7 +206,7 @@ public class OfflineGameClass extends Activity {
     private void submitGuess(Button guessButton)
     {
         String guess = guessButton.getText().toString();
-        String answer = getCountryName(correctAnswer);
+        String answer = getCountryNameFromStrings(this, correctAnswer);
         ++totalGuesses;
         if (guess.equals(answer))
         {
@@ -328,6 +328,15 @@ public class OfflineGameClass extends Activity {
         AlertDialog resetDialog = builder.create();
         resetDialog.show();
     }
+
+    public static String getCountryNameFromStrings(Activity a, String fileName)
+    {
+        int resId = a.getResources().getIdentifier(fileName.substring(fileName.indexOf("-") + 1), "string", a.getPackageName());
+        Log.d("Country 1", "Country: " + fileName.substring(fileName.indexOf("-") + 1));
+        return a.getString(resId);
+
+    }
+
 
 
 }

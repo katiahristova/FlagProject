@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.util.*;
 
 public class MyActivity extends FragmentActivity {
-    //private static final String TAG = "FlagQuizGame Activity";
     private List<String> fileNameList; // flag file names
     private List<String> quizCountriesList;
     private Map<String, Boolean> regionsMap;
@@ -53,15 +52,12 @@ public class MyActivity extends FragmentActivity {
     private TableLayout buttonTableLayout;
     private GoogleMap mMap;
     private LatLng latLng;
-    private String addressText;
     private CustomInfoWindowForMarker customInfoWindowForMarker;
-    private String nextImageName, oldImageName;
+    private String nextImageName;
     private AssetManager assetManager;
-    private String filenameOld, filenameNew;
     private Button newGuessButton;
     private Button nextButton;
     private boolean firstRun;
-    private Context myActivityContext;
     private boolean correctAnswerGiven = false;
 
     @Override
@@ -70,9 +66,6 @@ public class MyActivity extends FragmentActivity {
         setContentView(R.layout.main);
         String actionBarTitle = getString(R.string.guess_country);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
-
-        myActivityContext = getApplicationContext();
-
 
         firstRun = true;
         customInfoWindowForMarker = new CustomInfoWindowForMarker();
@@ -212,10 +205,6 @@ public class MyActivity extends FragmentActivity {
         InputStream stream;
         try {
             stream = assetManager.open(region + "/" + nextImageName + ".png");
-            filenameOld = filenameNew;
-            oldImageName = nextImageName;
-            filenameNew = region + "/" + nextImageName + ".png";
-
             flag = Drawable.createFromStream(stream, nextImageName);
 
         } catch (IOException e) {
@@ -413,7 +402,7 @@ public class MyActivity extends FragmentActivity {
         @Override
         protected void onPostExecute(List<Address> addresses) {
             if (!SharedMethods.isOnline(getApplicationContext()))
-                SharedMethods.networkModePopup(MyActivity.this);
+                SharedMethods.networkModePopup(MyActivity.this, (HashMap) regionsMap, guessRows);
             else {
                 if (addresses == null || addresses.size() == 0) {
                     Toast.makeText(getBaseContext(), R.string.no_location_found, Toast.LENGTH_SHORT).show();
@@ -437,11 +426,6 @@ public class MyActivity extends FragmentActivity {
 
                     // Creating an instance of GeoPoint, to display in Google Map
                     latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    //final String x = address.getCountryName();
-                    addressText = String.format("%s %s",
-                            address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                            address.getCountryName());
-
 
                     // Locate the first location
                     if (i == 0)
