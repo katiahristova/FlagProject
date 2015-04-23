@@ -26,20 +26,21 @@ public class startPage extends Activity{
     Button selectRegionsButton;
     int guessRows = 0;
     int counter = 0;
+    boolean dataOn;
+    boolean wifiOn;
+    boolean networkAllowed;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity_layout);
 
         //Flag for LittleHands permissions
-        boolean networkAllowed = true;
+        networkAllowed = true;
 
         String actionBarTitle = getString(R.string.app_name);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
-        //Check if data and wifi are on
-        boolean dataOn = dataState();
-        boolean wifiOn = wifiState();
+
 
         regionsMap = new HashMap<String, Boolean>();
         String[] regionNames =
@@ -48,7 +49,7 @@ public class startPage extends Activity{
             regionsMap.put(region, true);
 
 
-        final boolean online= (dataOn || wifiOn) && networkAllowed;
+
 
         playButton = (Button) findViewById(R.id.buttonPlay);
         playOfflineButton = (Button) findViewById(R.id.buttonPlayOffline);
@@ -57,6 +58,10 @@ public class startPage extends Activity{
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Check if data and wifi are on
+                dataOn = dataState();
+                wifiOn = wifiState();
+                boolean online= (dataOn || wifiOn) && networkAllowed;
                 if (online) {
                     Intent i = new Intent(getApplicationContext(), MyActivity.class);
                     showSelectNumberOfChoicesPopup(i);
