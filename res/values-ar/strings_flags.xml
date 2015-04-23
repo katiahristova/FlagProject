@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">المرح مع أعلام</string>
+    <string name="choices">حدد عدد من الخيارات</string>
+    <string name="correct">صحيح</string>
+    <string name="guess_country">تخمين البلد</string>
+    <string name="guesses">التخمينات</string>
+    <string name="incorrect_answer">غير صحيح</string>
+    <string name="more_regions_title">المزيد من المناطق مطلوبة</string>
+   <string name="more_regions_message">ليست هناك عدد كاف من الدول في مناطق مختارة. يرجى تحديد المزيد من المناطق.</string>
+    <string name="of">/</string>
+    <string name="ok">حسنا</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="cancel">إلغاء</string>
+    <string name="home">منزل</string>
+    <string name="new_game">لعبة جديدة</string>
+    <string name="question">مسألة</string>
+    <string name="offline_mode">حاليا الوضع</string>
+    <string name="play_with_map">لعب مع خريطة</string>
+    <string name="play_without_map">لعب بدون خريطة</string>
+    <string name="regions">حدد المناطق</string>
+    <string name="reset_quiz">إعادة تعيين مسابقة</string>
+    <string name="no_location_found">الموقع غير جدت</string>
+    <string name="population">عدد السكان</string>
+    <string name="internet_off">أي اتصال إنترنت</string>
+    <string name="play_offline">تريد أن تلعب حاليا؟</string>
+    <string name="internet_on">اتصال إنترنت على</string>
+    <string name="back_to_map">هل ترغب في العودة إلى الخريطة؟</string>
+    <string name="quit_game">إنهاء لعبة</string>
+    <string name="quit_the_game">هل تريد إنهاء هذه اللعبة؟</string>
+    <string-array name="regionsList">
+        <item>أفريقيا</item>
+        <item>آسيا</item>
+        <item>أوروبا</item>
+        <item>امريكا الشمالية</item>
+        <item>أوقيانوسيا</item>
+        <item>امريكا الجنوبية</item>
+    </string-array>
+    <string-array name="guessesList">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+</resources>
