@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +64,6 @@ public class OfflineGameClass extends Activity {
 
         String actionBarTitle = getString(R.string.offline_mode);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
-
 
 
         guessRows = getIntent().getIntExtra("guessRows", guessRows);
@@ -216,9 +216,11 @@ public class OfflineGameClass extends Activity {
                     getResources().getColor(R.color.correct_answer));
             guessButton.setTextColor(getResources().getColor(R.color.correct_answer));
             disableButtons();
-            if (correctAnswers == 10)
-            {
+            if (correctAnswers == 10) {
+                double currentHighScore = SharedMethods.readHighScore(OfflineGameClass.this);
                 float scorePrcntg = 1000 / (float) totalGuesses;
+                Log.d("Currentscore"," "+currentHighScore);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 builder.setTitle(R.string.reset_quiz);
@@ -226,17 +228,24 @@ public class OfflineGameClass extends Activity {
 
                 builder.setTitle(R.string.reset_quiz);
 
-                builder.setMessage(String.format("%d %s, %.02f%% %s",
-                        totalGuesses, getResources().getString(R.string.guesses),
-                        (scorePrcntg),
-                        getResources().getString(R.string.correct)));
+                if (currentHighScore < scorePrcntg) {
+                    SharedMethods.writeHighScore(OfflineGameClass.this, scorePrcntg);
+                    builder.setMessage(String.format("%d %s, %.02f%% %s \n %s - %.02f%%",
+                            totalGuesses, getResources().getString(R.string.guesses),
+                            (scorePrcntg),
+                            getResources().getString(R.string.correct),
+                            getResources().getString(R.string.new_score), scorePrcntg));
+                } else{
+                    builder.setMessage(String.format("%d %s, %.02f%% %s",
+                            totalGuesses, getResources().getString(R.string.guesses),
+                            (scorePrcntg),
+                            getResources().getString(R.string.correct)));
+                }
 
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.reset_quiz,
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id)
-                            {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 resetQuiz();
                             }
                         }
@@ -246,11 +255,9 @@ public class OfflineGameClass extends Activity {
             }
             else
             {  handler.postDelayed(
-                    new Runnable()
-                    {
+                    new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             loadNextFlag();
                         }
                     }, 1000);

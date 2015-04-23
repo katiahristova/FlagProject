@@ -30,6 +30,9 @@
     <string name="back_to_map">Would you like to go back to the map?</string>
     <string name="quit_game">Quit Game</string>
     <string name="quit_the_game">Do you want to quit this game?</string>
+
+    <string name="new_score">New high score!</string>
+
     <string-array name="regionsList">
         <item>Africa</item>
         <item>Asia</item>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,6 +18,7 @@ import java.util.Map;
  * Created by Samurai on 4/19/15.
  */
 public class SharedMethods {
+    static double highscore = 0.0;
     static AlertDialog resetDialog;
     private static int exitGame;
     private static Intent i = null;
@@ -150,6 +152,25 @@ public class SharedMethods {
         title.setTextSize(20);
 
         return title;
+    }
+
+    public static void writeHighScore(Context context, double newsc){
+        String newHighScore = String.valueOf(newsc);
+        SharedPreferences sharedPref = context.getSharedPreferences("highscore", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(("highscore"), newHighScore);
+        editor.commit();
+    }
+
+    public static double readHighScore(Context context){
+        SharedPreferences prfs = context.getSharedPreferences("highscore", Context.MODE_PRIVATE);
+        try {
+            highscore = Double.parseDouble(prfs.getString("highscore", ""));
+            return highscore;
+        }catch (Exception e){}
+
+
+        return highscore;
     }
 
 

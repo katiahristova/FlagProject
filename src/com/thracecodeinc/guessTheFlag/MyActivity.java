@@ -466,15 +466,27 @@ public class MyActivity extends FragmentActivity {
     public void gameFinishedPopup(){
         nextButton.setVisibility(View.INVISIBLE);
         //just a little delay between the old game and the new game
+        double currentHighScore = SharedMethods.readHighScore(MyActivity.this);
         float scorePrcntg = 1000 / (float) totalGuesses;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle(R.string.reset_quiz);
         builder.setIcon(SharedMethods.emoticon(scorePrcntg));
-        builder.setMessage(String.format("%d %s, %.02f%% %s",
-                totalGuesses, getResources().getString(R.string.guesses),
-                (scorePrcntg),
-                getResources().getString(R.string.correct)));
+
+
+        if (currentHighScore < scorePrcntg) {
+            SharedMethods.writeHighScore(MyActivity.this, scorePrcntg);
+            builder.setMessage(String.format("%d %s, %.02f%% %s \n %s - %.02f%%",
+                    totalGuesses, getResources().getString(R.string.guesses),
+                    (scorePrcntg),
+                    getResources().getString(R.string.correct),
+                    getResources().getString(R.string.new_score), scorePrcntg));
+        } else{
+            builder.setMessage(String.format("%d %s, %.02f%% %s",
+                    totalGuesses, getResources().getString(R.string.guesses),
+                    (scorePrcntg),
+                    getResources().getString(R.string.correct)));
+        }
 
         builder.setCancelable(true);
         builder.setPositiveButton(R.string.reset_quiz,
