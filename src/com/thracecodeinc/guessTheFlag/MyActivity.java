@@ -269,7 +269,7 @@ public class MyActivity extends FragmentActivity {
 
         } else {
             //flagImageView.startAnimation(shakeAnimation);
-            guessButton.setTextColor(getResources().getColor(R.color.incorrect_answer));
+            guessButton.setTextColor(getResources().getColor(R.color.translucent_black));
             guessButton.startAnimation(shakeAnimation);
             //answerTextView.setText(R.string.incorrect_answer);
             //answerTextView.setTextColor(

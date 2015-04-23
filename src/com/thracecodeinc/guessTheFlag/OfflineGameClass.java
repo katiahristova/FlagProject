@@ -211,7 +211,7 @@ public class OfflineGameClass extends Activity {
         if (guess.equals(answer))
         {
             ++correctAnswers;
-            answerTextView.setText(answer + "!");
+            answerTextView.setText(answer);
             answerTextView.setTextColor(
                     getResources().getColor(R.color.correct_answer));
             guessButton.setTextColor(getResources().getColor(R.color.correct_answer));

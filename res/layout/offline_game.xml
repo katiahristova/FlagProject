@@ -13,20 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/guess_country"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/dimen10dp"
         android:textColor="@color/wallet_holo_blue_light"
         android:textSize="@dimen/title_size"
         android:gravity="center">
     </TextView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dimen5dp"
+        android:background="#FF0000FF" />
 
     <TextView android:id="@+id/questionNumberTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/dimen10dp"
+        android:layout_marginTop="@dimen/dimen10dp"
         android:textColor="@color/wallet_holo_blue_light"
         android:textSize="@dimen/text_size"
         android:layout_gravity="center"
+        android:textStyle="bold"
         android:gravity="center"></TextView>
 
     <ImageView android:id="@+id/flagImageView"
@@ -34,35 +39,42 @@
         android:layout_width="@dimen/flag_width"
         android:layout_marginBottom="20dp"
         android:layout_height="@dimen/flag_height"></ImageView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dimen5dp"
+        android:background="#FF0000FF" />
 
-
+    <TextView android:id="@+id/answerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/answer_size"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/dimen10dp"
+        android:textStyle="bold"
+        android:background="@drawable/border"
+        android:gravity="center"></TextView>
 
     <TableLayout android:id="@+id/buttonTableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" android:stretchColumns="0,1,2">
         <TableRow android:id="@+id/tableRow0"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/dimen5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"></TableRow>
         <TableRow android:id="@+id/tableRow1"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/dimen5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"></TableRow>
         <TableRow android:id="@+id/tableRow2"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/dimen5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"></TableRow>
 
     </TableLayout>
 
-    <TextView android:id="@+id/answerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/answer_size"
-        android:layout_gravity="center" android:textStyle="bold"
-        android:gravity="center"></TextView>
+
 </LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <dimen name="title_size">37.5sp</dimen>
+   <dimen name="flag_width">226.5dp</dimen>
+   <dimen name="flag_height">150dp</dimen>
+   <dimen name="answer_size">37.5sp</dimen>
+   <dimen name="text_size">30sp</dimen>
+   <dimen name="next_button">52.5dp</dimen>
+
+   <dimen name="dimen2dp">3dp</dimen>
+   <dimen name="dimen3dp">4.5dp</dimen>
+   <dimen name="dimen5dp">7.5dp</dimen>
+   <dimen name="dimen10dp">15dp</dimen>
+   <dimen name="dimen15dp">22.5dp</dimen>
+   <dimen name="dimen20dp">30dp</dimen>
+   <dimen name="dimen35dp">52.5dp</dimen>
+   <dimen name="dimen14dp">21dp</dimen>
+   <dimen name="dimen50dp">75dp</dimen>
+</resources>

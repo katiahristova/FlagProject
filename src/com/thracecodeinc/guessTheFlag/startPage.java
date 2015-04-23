@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,9 @@ public class startPage extends Activity{
 
         //Flag for LittleHands permissions
         boolean networkAllowed = true;
+
+        String actionBarTitle = getString(R.string.app_name);
+        getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
         //Check if data and wifi are on
         boolean dataOn = dataState();
