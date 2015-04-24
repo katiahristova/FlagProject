@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Diversión con banderas</string>
+    <string name="choices">Seleccione número de opciones</string>
+    <string name="correct">correcto</string>
+    <string name="guess_country">Adivina el País</string>
+    <string name="guesses">conjeturas</string>
+    <string name="incorrect_answer">Incorrecto</string>
+    <string name="more_regions_title">Más regiones Obligatorio</string>
+   <string name="more_regions_message">No hay suficientes países de las regiones seleccionadas. Por favor, seleccione más regiones.</string>
+    <string name="of">/</string>
+    <string name="ok">OK</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancelar</string>
+    <string name="home">Inicio</string>
+    <string name="new_game">Nuevo Juego.</string>
+    <string name="question">pregunta</string>
+    <string name="offline_mode">Modo sin conexión.</string>
+    <string name="play_with_map">Juega con el mapa</string>
+    <string name="play_without_map">Jugar Sin Mapa</string>
+    <string name="regions">Seleccione las Regiones.</string>
+    <string name="reset_quiz">Restablecer Quiz.</string>
+    <string name="no_location_found">No Ubicación encontró.</string>
+    <string name="population">Población.</string>
+    <string name="internet_off">Sin conexión a Internet</string>
+    <string name="play_offline">¿Te gustaría jugar fuera de línea?</string>
+    <string name="internet_on">Conexión a Internet está en</string>
+    <string name="back_to_map">¿Te gustaría volver al mapa?</string>
+    <string name="quit_game">Salir Del Juego.</string>
+    <string name="quit_the_game">¿Quieres salir de este juego?</string>
+    <string-array name="regionsList">
+        <item>África</item>
+        <item>Asia</item>
+        <item>Europa</item>
+        <item>Nordamerika</item>
+        <item>Oceanía</item>
+        <item>Sudamérica</item>
+    </string-array>
+    <string-array name="guessesList">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+</resources>

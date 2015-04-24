@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Игра със знамена</string>
+    <string name="choices">Изберете брой на опциите</string>
+    <string name="correct">вярно</string>
+    <string name="guess_country">Познайте държавата</string>
+    <string name="guesses">опита</string>
+    <string name="incorrect_answer">Грешно</string>
+    <string name="more_regions_title">Трябват повече региони</string>
+   <string name="more_regions_message">Няма достатъчно страни в избраните региони. Моля изберете повече региони.</string>
+    <string name="of">/</string>
+    <string name="ok">OK</string>
+    <string name="yes">Да</string>
+    <string name="no">Не</string>
+    <string name="cancel">Отмени</string>
+    <string name="home">Вкъщи</string>
+    <string name="new_game">Нова игра</string>
+    <string name="question">Въпрос</string>
+    <string name="offline_mode">Игра без интернет</string>
+    <string name="play_with_map">Игра с карта</string>
+    <string name="play_without_map">Игра без карта</string>
+    <string name="regions">Изберете региони</string>
+    <string name="reset_quiz">Рестарт на играта</string>
+    <string name="no_location_found">Неизвестно местоположение </string>
+    <string name="population">население</string>
+    <string name="internet_off">Няма връзка с интернет</string>
+    <string name="play_offline">Бихте ли искали да играете офлайн?</string>
+    <string name="internet_on">Има Интернет връзка</string>
+    <string name="back_to_map">Бихте ли искали да се върнете към картата?</string>
+    <string name="quit_game">Излезте от играта</string>
+    <string name="quit_the_game">Искате ли да се откажeте от тази игра?</string>
+    <string-array name="regionsList">
+        <item>Африка</item>
+        <item>Азия</item>
+        <item>Европа</item>
+        <item>Северна Америка</item>
+        <item>Океания</item>
+        <item>Южна Америка</item>
+    </string-array>
+    <string-array name="guessesList">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+</resources>

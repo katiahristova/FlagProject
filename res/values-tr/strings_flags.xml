@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fun With Flags</string>
+    <string name="choices">Seçimleri Sayısı Seçiniz</string>
+    <string name="correct">Doğru</string>
+    <string name="guess_country">Ülkeyi Sanırım</string>
+    <string name="guesses">tahmin</string>
+    <string name="incorrect_answer">Yanlış</string>
+    <string name="more_regions_title">Daha Bölgeler Gerekli</string>
+   <string name="more_regions_message">Seçilen bölgelerde yeterli ülkeler yoktur. Fazla bölge seçiniz.</string>
+    <string name="of">/</string>
+    <string name="ok">OK</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="cancel">İptal</string>
+    <string name="home">Ana Sayfa</string>
+    <string name="new_game">Yeni Oyun</string>
+    <string name="question">Soru</string>
+    <string name="offline_mode">Çevrimdışı Modu.</string>
+    <string name="play_with_map">Harita ile oynayın</string>
+    <string name="play_without_map">Harita olmadan oynayın</string>
+    <string name="regions">Seç Bölgeler</string>
+    <string name="reset_quiz">Oyunu sıfırlayın</string>
+    <string name="no_location_found">Hiçbir Yer bulunamadı.</string>
+    <string name="population">Nüfus</string>
+    <string name="internet_off">İnternet bağlantısı yok</string>
+    <string name="play_offline">Eğer internet olmadan oynamak ister misiniz?</string>
+    <string name="internet_on">Internet bağlantısı</string>
+    <string name="back_to_map">Geri haritaya gitmek ister misiniz?</string>
+    <string name="quit_game">Oyunu çıkın</string>
+    <string name="quit_the_game">Bu oyundan çıkmak istiyor musunuz?</string>
+    <string-array name="regionsList">
+        <item>Afrika</item>
+        <item>Asya</item>
+        <item>Avrupa</item>
+        <item>Kuzey Amerika</item>
+        <item>Okyanusya</item>
+        <item>Güney Amerika</item>
+    </string-array>
+    <string-array name="guessesList">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+</resources>
