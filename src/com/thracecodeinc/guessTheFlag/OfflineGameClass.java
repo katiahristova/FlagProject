@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -219,16 +221,16 @@ public class OfflineGameClass extends Activity {
             if (correctAnswers == 10) {
                 double currentHighScore = SharedMethods.readHighScore(OfflineGameClass.this);
                 float scorePrcntg = 1000 / (float) totalGuesses;
-                Log.d("Currentscore"," "+currentHighScore);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                 builder.setTitle(R.string.reset_quiz);
                 builder.setIcon(SharedMethods.emoticon(scorePrcntg));
 
-                builder.setTitle(R.string.reset_quiz);
+                builder.setTitle(R.string.new_score);
 
                 if (currentHighScore < scorePrcntg) {
+
                     SharedMethods.writeHighScore(OfflineGameClass.this, scorePrcntg);
                     builder.setMessage(String.format("%d %s, %.02f%% %s \n %s - %.02f%%",
                             totalGuesses, getResources().getString(R.string.guesses),
@@ -269,7 +271,7 @@ public class OfflineGameClass extends Activity {
             answerTextView.setTextColor(
                     getResources().getColor(R.color.incorrect_answer));
             guessButton.setEnabled(false);
-            guessButton.setTextColor(getResources().getColor(R.color.incorrect_answer));
+            guessButton.setTextColor(getResources().getColor(R.color.translucent_black));
         }
     }
 

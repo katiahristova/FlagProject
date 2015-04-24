@@ -149,7 +149,7 @@ public class SharedMethods {
         //title.setPadding(10, 10, 10, 10);
         title.setGravity(Gravity.CENTER);
         title.setTextColor(Color.WHITE);
-        title.setTextSize(20);
+        title.setTextSize(context.getResources().getDimension(R.dimen.dimen10dp));
 
         return title;
     }
