@@ -35,7 +35,7 @@ import java.util.Map;
     CustomInfoWindowForMarker(Activity a, String fileName, Drawable flag_old) {
 
             markerView = a.getLayoutInflater()
-                    .inflate(R.layout.custom_marker_layout, null);
+                    .inflate(R.layout.flags_custom_marker_layout, null);
 
             Bitmap bitmap = ((BitmapDrawable) flag_old).getBitmap();
 

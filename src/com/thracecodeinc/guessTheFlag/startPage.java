@@ -32,7 +32,7 @@ public class startPage extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_activity_layout);
+        setContentView(R.layout.flags_start_activity_layout);
 
         //Flag for LittleHands permissions
         networkAllowed = true;

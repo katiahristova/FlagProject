@@ -29,6 +29,7 @@
     <string name="back_to_map">¿Te gustaría volver al mapa?</string>
     <string name="quit_game">Salir Del Juego.</string>
     <string name="quit_the_game">¿Quieres salir de este juego?</string>
+    <string name="new_score">Nuevo record!</string>
     <string-array name="regionsList">
         <item>África</item>
         <item>Asia</item>

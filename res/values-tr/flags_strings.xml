@@ -29,6 +29,7 @@
     <string name="back_to_map">Geri haritaya gitmek ister misiniz?</string>
     <string name="quit_game">Oyunu çıkın</string>
     <string name="quit_the_game">Bu oyundan çıkmak istiyor musunuz?</string>
+    <string name="new_score">Yeni yüksek puanı!</string>
     <string-array name="regionsList">
         <item>Afrika</item>
         <item>Asya</item>

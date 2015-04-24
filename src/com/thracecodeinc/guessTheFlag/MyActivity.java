@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -63,7 +61,7 @@ public class MyActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.flags_online_game);
         String actionBarTitle = getString(R.string.guess_country);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
 
@@ -227,7 +225,7 @@ public class MyActivity extends FragmentActivity {
 
             for (int column = 0; column < 2; column++) {
                 newGuessButton =
-                        (Button) inflater.inflate(R.layout.guess_button, null);
+                        (Button) inflater.inflate(R.layout.flags_guess_button, null);
                 String fileName = fileNameList.get((row * 2) + column);
                 //Set button text to country name from string resource files
                 newGuessButton.setText(getCountryNameFromStrings(this, fileName));
@@ -291,7 +289,7 @@ public class MyActivity extends FragmentActivity {
         super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu_myactivity, menu);
+        inflater.inflate(R.menu.flags_options_menu_myactivity, menu);
         return true;
     }
 

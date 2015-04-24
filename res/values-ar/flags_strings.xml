@@ -29,6 +29,7 @@
     <string name="back_to_map">هل ترغب في العودة إلى الخريطة؟</string>
     <string name="quit_game">إنهاء لعبة</string>
     <string name="quit_the_game">هل تريد إنهاء هذه اللعبة؟</string>
+    <string name="new_score">درجة عالية جديدة!</string>
     <string-array name="regionsList">
         <item>أفريقيا</item>
         <item>آسيا</item>
@@ -42,4 +43,5 @@
         <item>4</item>
         <item>6</item>
     </string-array>
+
 </resources>

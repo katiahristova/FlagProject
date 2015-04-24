@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +58,7 @@ public class OfflineGameClass extends Activity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.offline_game);
+        setContentView(R.layout.flags_offline_game);
 
         String actionBarTitle = getString(R.string.offline_mode);
         getActionBar().setTitle(Html.fromHtml("<font color='#20b2aa'>" + actionBarTitle + "</font>"));
@@ -185,7 +181,7 @@ public class OfflineGameClass extends Activity {
             for (int column = 0; column < 2; column++)
             {
                 Button newGuessButton =
-                        (Button) inflater.inflate(R.layout.guess_button, null);
+                        (Button) inflater.inflate(R.layout.flags_guess_button, null);
                 String fileName = fileNameList.get((row * 2) + column);
                 newGuessButton.setText(getCountryNameFromStrings(this, fileName));
                 newGuessButton.setOnClickListener(guessButtonListener);
@@ -289,7 +285,7 @@ public class OfflineGameClass extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu_myactivity, menu);
+        inflater.inflate(R.menu.flags_options_menu_myactivity, menu);
         return true;
     }
 
